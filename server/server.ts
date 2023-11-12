@@ -31,16 +31,4 @@ app.post("/", async (req, res) => {
   }
 });
 
-app.get("/setup", async (req, res) => {
-  try {
-    await pool.query(
-      "CREATE TABLE schools( id SERIAL PRIMARY KEY, name VARCHAR(100), address VARCHAR(100))"
-    );
-    res.status(200).send({ message: "Successfully created table" });
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-
 app.listen(port, () => console.log(`Server has started on port: ${port}`));
