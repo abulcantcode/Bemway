@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node server.ts",
-    "db": "docker run --rm --name pg-docker -e POSTGRES_USER=user123 -e POSTGRES_PASSWORD=password123 -e POSTGRES_DB=db123 -d -p 5432:5432 -v %cd%/server/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/user/src/app postgres"
+    "db": "docker run --rm --name pg-docker -e POSTGRES_USER=user123 -e POSTGRES_PASSWORD=password123 -e POSTGRES_DB=db123 -d -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/user/src/app postgres",
+    "db:kill": "docker rm --force pg-docker"
   },
   "keywords": [],
   "author": "",
