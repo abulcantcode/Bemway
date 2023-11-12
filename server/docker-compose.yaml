@@ -7,8 +7,8 @@ services:
       POSTGRES_USER: user123
       POSTGRES_DB: db123
     volumes:
-      - ./init-scripts:/docker-entrypoint-initdb.d
+      - ./init_scripts:/docker-entrypoint-initdb.d
   app:
     image: my-node-app
     ports:
-      - 13000:8080
+      - 8080:8080

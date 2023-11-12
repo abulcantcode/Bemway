@@ -19,7 +19,7 @@ const InputForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:13000/", {
+      const response = await fetch("http://localhost:8080/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,8 +48,9 @@ const InputForm = () => {
         <label>
           Name:
           <input
-            type='text'
-            name='name'
+            type="text"
+            name="name"
+            className="text-black"
             value={formData.name}
             onChange={handleChange}
           />
@@ -60,8 +61,9 @@ const InputForm = () => {
         <label>
           Location:
           <input
-            type='text'
-            name='location'
+            type="text"
+            name="location"
+            className="text-black"
             value={formData.location}
             onChange={handleChange}
           />
@@ -69,7 +71,7 @@ const InputForm = () => {
 
         <br />
 
-        <button type='submit'>Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </section>
   );

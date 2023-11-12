@@ -1,11 +1,12 @@
 import express from "express";
 import { pool } from "./db";
+// import cors from "cors";
 
 const port = 8080;
 
 const app = express();
 app.use(express.json());
-
+// app.use(cors());
 //routes
 app.get("/", async (req, res) => {
   try {
