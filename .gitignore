@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# setup
+server/node_modules
+server/.env*.local
+server/.pnp
+server/.pnp.js
+server/.yarn/install-state.gz
