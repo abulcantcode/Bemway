@@ -1,11 +1,13 @@
 FROM node:18
 
-WORKDIR /usr/src/app
+WORKDIR /user/src/app
 
 COPY package*.json ./
+
 RUN npm install
 
 COPY . .
 
-EXPOSE 1337
+EXPOSE 8080
+
 CMD ["npm", "run", "dev"]

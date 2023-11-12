@@ -9,4 +9,4 @@ services:
   app:
     image: my-node-app
     ports:
-      - 13000:3000
+      - 13000:8080
