@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node server.ts",
-    "db": "docker run --rm --name pg-docker -e POSTGRES_USER=user123 -e POSTGRES_PASSWORD=password123 -e POSTGRES_DB=db123 -d -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/user/src/app postgres",
-    "db:kill": "docker rm --force pg-docker"
+    "dev": "npx nodemon server.ts",
+    "debug:watch": "nodemon --inspect src/index.ts",
+    "db": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/user/src/app postgres",
+    "db:live": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/user/src/app postgres",
+    "db:kill": "docker rm --force pg-docker",
+    "migrate": "npx zapatos"
   },
   "keywords": [],
   "author": "",
@@ -18,10 +21,13 @@
     "@types/pg": "^8.10.9",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "zapatos": "^6.2.0"
   }
 }

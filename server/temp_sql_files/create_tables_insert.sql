@@ -32,8 +32,36 @@ CREATE TABLE "userTask" (
 );
 
 
-INSERT INTO "user" ("firstName", "lastName") VALUES ('sab', 'ch');
+INSERT INTO "user" ("firstName", "lastName") VALUES ('kha', 'abs');
 
-INSERT INTO "task" ("title", "status") VALUES ('go gym', 'In-Progress');
+INSERT INTO "task" ("title", "status") VALUES ('do sumn', 'In-Progress');
 
-INSERT INTO "userTask" ("taskId", "userId") VALUES ( (SELECT "id" FROM "task" WHERE "title" = 'go gym'), (SELECT "id" FROM "user" WHERE "firstName"= 'sab'));
+INSERT INTO "userTask" ("taskId", "userId") VALUES ( (SELECT "id" FROM "task" WHERE "title" = 'do sumn'), (SELECT "id" FROM "user" WHERE "firstName"= 'sab'));
+
+SELECT * FROM "task" 
+JOIN "userTask" ON "userTask"."taskId" = "task"."id"
+JOIN "user" ON "user"."id" = "userTask"."userId"
+WHERE "user"."lastName" = 'ch';
+
+SELECT "task".*, to_jsonb("userTask")||jsonb_build_object('user', "user") as "userTask"
+from "task"
+left join "userTask" on "userTask"."taskId" = "task"."id"
+left join "user" on "user"."id" = "userTask"."userId";
+
+SELECT * as "userTask" from "task" left join "userTask" on "userTask"."taskId" = "task"."id" left join "user" on "user"."id" = "userTask"."userId";
+
+
+SELECT
+*,
+(
+    SELECT
+    json_agg(
+        to_jsonb("userTask") || jsonb_build_object('user',"user")
+    ) as "userTask"
+    FROM "userTask"
+    left join "user" on "user"."id" = "userTask"."userId"
+    WHERE "userTask"."taskId" = "task"."id"
+) as "userTask"
+FROM "task";
+
+SELECT to_json("task") FROM 

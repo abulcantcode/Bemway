@@ -1,5 +1,32 @@
-CREATE TABLE schools (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
-    address VARCHAR(100)
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+
+CREATE TABLE "user" (
+    "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    "firstName" TEXT NOT NULL DEFAULT E'',
+    "lastName" TEXT NOT NULL DEFAULT E'',
+    "created" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TYPE "Status" AS ENUM ('Not_Started', 'Done', 'In-Progress', 'Blocked');
+
+
+CREATE TABLE "task" (
+    "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    "title" TEXT NOT NULL DEFAULT E'',
+    "description" TEXT,
+    "status" "Status" DEFAULT 'Not_Started',
+    "created" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE "userTask" (
+    "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    "userId" UUID REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    "taskId" UUID REFERENCES "task"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    "created" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
