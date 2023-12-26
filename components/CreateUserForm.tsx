@@ -41,8 +41,8 @@ const InputForm = () => {
   };
 
   return (
-    <section>
-      <h2>Input Form</h2>
+    <div className="">
+      <h2>Create User</h2>
 
       <form onSubmit={handleSubmit}>
         <label>
@@ -73,7 +73,7 @@ const InputForm = () => {
 
         <button type="submit">Submit</button>
       </form>
-    </section>
+    </div>
   );
 };
 

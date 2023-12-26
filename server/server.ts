@@ -37,7 +37,7 @@ FROM "task";
   }
 });
 
-app.post("/", async (req, res) => {
+app.post("/user/", async (req, res) => {
   const { name, location } = req.body;
   try {
     await pool.query("INSERT INTO schools (name, address) VALUES ($1, $2)", [
