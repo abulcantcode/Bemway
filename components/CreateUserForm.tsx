@@ -41,16 +41,18 @@ const InputForm = () => {
   };
 
   return (
-    <div className="">
-      <h2>Create User</h2>
+    <div className="bg-green-500 p-4 px-8 rounded-md w-fit flex flex-col items-center">
+      <h2 className="font-bold text-xl underline underline-offset-4">
+        Create User
+      </h2>
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
+      <form onSubmit={handleSubmit} className="flex flex-col mt-4 items-center">
+        <label className="flex flex-col items-center gap-2">
+          First Name:
           <input
             type="text"
             name="name"
-            className="text-black"
+            className="text-black rounded-md"
             value={formData.name}
             onChange={handleChange}
           />
@@ -58,12 +60,12 @@ const InputForm = () => {
 
         <br />
 
-        <label>
-          Location:
+        <label className="flex flex-col items-center gap-2">
+          Last Name:
           <input
             type="text"
             name="location"
-            className="text-black"
+            className="text-black rounded-md"
             value={formData.location}
             onChange={handleChange}
           />
@@ -71,7 +73,9 @@ const InputForm = () => {
 
         <br />
 
-        <button type="submit">Submit</button>
+        <button className="bg-black py-2 px-4 rounded-md" type="submit">
+          Create
+        </button>
       </form>
     </div>
   );
