@@ -4,8 +4,8 @@ import React, { useState } from "react";
 const InputForm = () => {
   // Use state to handle inputs
   const [formData, setFormData] = useState({
-    name: "",
-    location: "",
+    firstName: "",
+    lastName: "",
   });
 
   //update use state on change of the form
@@ -19,7 +19,7 @@ const InputForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/", {
+      const response = await fetch("http://localhost:8080/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,10 +28,10 @@ const InputForm = () => {
       });
 
       if (response.ok) {
-        console.log("Request successful");
+        console.log("User created successfully");
         // Handle success, e.g., show a success message
       } else {
-        console.error("Request failed");
+        console.error("User create failed");
         // Handle failure, e.g., show an error message
       }
     } catch (error) {
@@ -41,37 +41,41 @@ const InputForm = () => {
   };
 
   return (
-    <div className="">
-      <h2>Create User</h2>
+    <div className="bg-green-500 p-4 px-8 rounded-md w-fit flex flex-col items-center">
+      <h2 className="font-bold text-xl underline underline-offset-4">
+        Create User
+      </h2>
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
+      <form onSubmit={handleSubmit} className="flex flex-col mt-4 items-center">
+        <label className="flex flex-col items-center gap-2">
+          First Name:
           <input
             type="text"
-            name="name"
-            className="text-black"
-            value={formData.name}
+            name="firstName"
+            className="text-black rounded-md px-2 py-1"
+            value={formData.firstName}
             onChange={handleChange}
           />
         </label>
 
         <br />
 
-        <label>
-          Location:
+        <label className="flex flex-col items-center gap-2">
+          Last Name:
           <input
             type="text"
-            name="location"
-            className="text-black"
-            value={formData.location}
+            name="lastName"
+            className="text-black rounded-md px-2 py-1"
+            value={formData.lastName}
             onChange={handleChange}
           />
         </label>
 
         <br />
 
-        <button type="submit">Submit</button>
+        <button className="bg-black py-2 px-4 rounded-md" type="submit">
+          Create
+        </button>
       </form>
     </div>
   );
