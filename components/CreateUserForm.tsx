@@ -4,8 +4,8 @@ import React, { useState } from "react";
 const InputForm = () => {
   // Use state to handle inputs
   const [formData, setFormData] = useState({
-    name: "",
-    location: "",
+    firstName: "",
+    lastName: "",
   });
 
   //update use state on change of the form
@@ -19,7 +19,7 @@ const InputForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/", {
+      const response = await fetch("http://localhost:8080/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,10 +28,10 @@ const InputForm = () => {
       });
 
       if (response.ok) {
-        console.log("Request successful");
+        console.log("User created successfully");
         // Handle success, e.g., show a success message
       } else {
-        console.error("Request failed");
+        console.error("User create failed");
         // Handle failure, e.g., show an error message
       }
     } catch (error) {
@@ -51,9 +51,9 @@ const InputForm = () => {
           First Name:
           <input
             type="text"
-            name="name"
-            className="text-black rounded-md"
-            value={formData.name}
+            name="firstName"
+            className="text-black rounded-md px-2 py-1"
+            value={formData.firstName}
             onChange={handleChange}
           />
         </label>
@@ -64,9 +64,9 @@ const InputForm = () => {
           Last Name:
           <input
             type="text"
-            name="location"
-            className="text-black rounded-md"
-            value={formData.location}
+            name="lastName"
+            className="text-black rounded-md px-2 py-1"
+            value={formData.lastName}
             onChange={handleChange}
           />
         </label>

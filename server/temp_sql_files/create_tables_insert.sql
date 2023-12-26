@@ -64,4 +64,6 @@ SELECT
 ) as "userTask"
 FROM "task";
 
-SELECT to_json("task") FROM 
+SELECT to_json("task") FROM;
+
+Select * from "user";

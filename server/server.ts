@@ -38,13 +38,13 @@ FROM "task";
 });
 
 app.post("/user/", async (req, res) => {
-  const { name, location } = req.body;
+  const { firstName, lastName } = req.body;
   try {
-    await pool.query("INSERT INTO schools (name, address) VALUES ($1, $2)", [
-      name,
-      location,
-    ]);
-    res.status(200).send({ message: "Successfully added child" });
+    await pool.query(
+      `INSERT INTO "user" ("firstName", "lastName") VALUES ($1, $2)`,
+      [firstName, lastName]
+    );
+    res.status(200).send({ message: "Successfully created user" });
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
