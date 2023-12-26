@@ -1,4 +1,4 @@
--- Active: 1699820285331@@127.0.0.1@5432@postgres@public
+-- Active: 1703614797495@@127.0.0.1@5432@postgres
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
@@ -67,3 +67,5 @@ FROM "task";
 SELECT to_json("task") FROM;
 
 Select * from "user";
+
+DROP * ;
