@@ -1,4 +1,4 @@
--- Active: 1703614797495@@127.0.0.1@5432@postgres
+-- Active: 1699820285331@@127.0.0.1@5432@postgres
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
@@ -32,7 +32,8 @@ CREATE TABLE "userTask" (
 );
 
 
-INSERT INTO "user" ("firstName", "lastName") VALUES ('kha', 'abs');
+INSERT INTO "user" ("firstName", "lastName", "id") VALUES ('kha', 'abs', '42b64d23-bbd8-470f-a8fa-450dec2ca6c9');
+INSERT INTO "user" ("firstName", "lastName") VALUES ('kha', 'abs',);
 
 INSERT INTO "task" ("title", "status") VALUES ('do sumn', 'In-Progress');
 
@@ -69,3 +70,140 @@ SELECT to_json("task") FROM;
 Select * from "user";
 
 DROP * ;
+SELECT to_json("task") FROM;
+
+Select * from "user";
+
+INSERT
+INTO
+"userBoard"
+("boardId", "userId")
+VALUES
+((INSERT INTO "board"
+    ("boardName", "ownerId")
+    VALUES
+    ('House Stuff', '42b64d23-bbd8-470f-a8fa-450dec2ca6c9')
+    RETURNING "id"
+),
+'42b64d23-bbd8-470f-a8fa-450dec2ca6c9');
+
+INSERT INTO "board"
+    ("boardName", "ownerId")
+    VALUES
+    ('House Stuff 2', '42b64d23-bbd8-470f-a8fa-450dec2ca6c9')
+RETURNING "id";
+
+
+INSERT
+INTO
+"userBoard"
+("boardId", "userId")
+VALUES
+(
+    (
+        INSERT INTO "board"
+    ("boardName", "ownerId")
+    VALUES
+    ('House Stuff 2', '42b64d23-bbd8-470f-a8fa-450dec2ca6c9')
+RETURNING "id";
+    ),
+'42b64d23-bbd8-470f-a8fa-450dec2ca6c9');
+
+
+INSERT INTO "userBoard" ("boardId", "userId")
+VALUES (
+    (
+        INSERT INTO "board" ("boardName", "ownerId")
+        VALUES ('House Stuff 2', '42b64d23-bbd8-470f-a8fa-450dec2ca6c9')
+        RETURNING "id"
+    ),
+    '42b64d23-bbd8-470f-a8fa-450dec2ca6c9'
+);
+
+
+
+WITH inserted_board AS (
+    INSERT INTO "board" ("boardName", "ownerId")
+    VALUES ('House Stuff 2', '42b64d23-bbd8-470f-a8fa-450dec2ca6c9')
+    RETURNING "id"
+)
+-- INSERT INTO "userBoard" ("boardId", "userId")
+SELECT * FROM inserted_board;
+-- RETURNING "boardId", "userId";
+
+
+
+WITH new_board AS (
+    INSERT INTO "board" ("ownerId", "boardName")#
+
+    VALUES (
+        '42b64d23-bbd8-470f-a8fa-450dec2ca6c9'::uuid,
+        'Test new'
+    )
+    RETURNING "id"
+),
+new_user_board AS (
+    INSERT INTO "userBoard"
+    ("userId", "boardId")
+    VALUES (
+        '42b64d23-bbd8-470f-a8fa-450dec2ca6c9'::uuid,
+        (SELECT "id" from new_board)
+    )
+    RETURNING "boardId"
+)
+INSERT INTO "stage" ("stageName","boardId")
+SELECT 'Not started', "id" from new_board
+UNION ALL
+SELECT 'In-progress', "id" from new_board
+UNION ALL
+SELECT 'Done', "id" from new_board;
+
+
+
+SELECT "board"."id", "board"."boardName", "stage"."id" FROM "board"
+LEFT JOIN "stage" ON "stage"."boardId" = "board"."id"
+WHERE "board"."ownerId" = '42b64d23-bbd8-470f-a8fa-450dec2ca6c9'::uuid;
+
+SELECT
+*,
+(
+    SELECT
+    json_agg(
+        to_jsonb("stage") || 
+        jsonb_build_object(
+            'task',
+            COALESCE((
+                SELECT json_agg(
+                    to_jsonb("task") || 
+                    jsonb_build_object(
+                        'userBoardTask',
+                        COALESCE((
+                            SELECT 
+                                json_agg(
+                                    to_jsonb("userBoardTask") ||
+                                    jsonb_build_object(
+                                        'userBoard',to_jsonb("userBoard") || jsonb_build_object('user',"user")
+                                    )
+                                )
+                            FROM "userBoardTask"
+                            LEFT JOIN "userBoard" ON "userBoard"."id" = "userBoardTask"."userBoardId"
+                            LEFT JOIN "user" ON "user"."id" = "userBoard"."userId"
+                            WHERE "userBoardTask"."taskId" = "task"."id"
+                            ),
+                            '[]'::json
+                        )
+                    )
+                )
+                FROM "task"
+                WHERE "task"."stageId" = "stage"."id"
+                ),
+                '[]'::json)
+            )
+    ) as "stage"
+    FROM "stage"
+    WHERE "stage"."boardId" = "board"."id"
+) as "stage"
+FROM "board"
+WHERE "board"."id" = '552fb941-d93b-4db2-a6a2-189431790b13';
+
+
