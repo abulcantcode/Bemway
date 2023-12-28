@@ -1,6 +1,9 @@
 import express from "express";
 import { pool } from "./db";
 import "dotenv/config";
+import user from "./routes/user/user";
+import task from "./routes/task/task";
+import board from "./routes/board/board";
 
 // import cors from "cors";
 
@@ -11,6 +14,7 @@ app.use(express.json());
 // app.use(cors());
 //routes
 app.get("/", async (req, res) => {
+  console.log("Server is running");
   try {
     //const data = await pool.query('SELECT * FROM "user"');
     const data = await pool.query(
@@ -20,13 +24,13 @@ SELECT
 (
     SELECT
     json_agg(
-        to_jsonb("userTask") || jsonb_build_object('user',"user")
-    ) as "userTask"
-    FROM "userTask"
-    left join "user" on "user"."id" = "userTask"."userId"
-    WHERE "userTask"."taskId" = "task"."id"
-) as "userTask"
-FROM "task";
+        to_jsonb("userBoard") || jsonb_build_object('user',"user")
+    ) as "userBoard"
+    FROM "userBoard"
+    left join "user" on "user"."id" = "userBoard"."userId"
+    WHERE "userBoard"."boardId" = "board"."id"
+) as "userBoard"
+FROM "board";
 `
     );
 
@@ -37,32 +41,8 @@ FROM "task";
   }
 });
 
-app.post("/user/", async (req, res) => {
-  const { firstName, lastName } = req.body;
-  try {
-    await pool.query(
-      `INSERT INTO "user" ("firstName", "lastName") VALUES ($1, $2)`,
-      [firstName, lastName]
-    );
-    res.status(200).send({ message: "Successfully created user" });
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-
-app.post("/task/", async (req, res) => {
-  const { title, description } = req.body;
-  try {
-    await pool.query(
-      `INSERT INTO "task" ("title", "description") VALUES ($1, $2)`,
-      [title, description]
-    );
-    res.status(200).send({ message: "Successfully created task" });
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
+task(app);
+user(app);
+board(app);
 
 app.listen(port, () => console.log(`Server has started on port: ${port}`));
