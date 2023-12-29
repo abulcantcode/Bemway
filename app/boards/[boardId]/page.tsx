@@ -1,5 +1,6 @@
 import Task, { TTask } from "@/components/Task";
 import TaskGroup from "@/components/TaskGroup";
+import InviteUser from "./_inviteUser";
 
 type TBoard = {
   id: string;
@@ -7,6 +8,22 @@ type TBoard = {
   ownerId: string;
   created: Date;
   updated: Date;
+  users: {
+    id: string;
+    user: {
+      id: string;
+      created: Date;
+      updated: Date;
+      lastName: string;
+      userName: string | null;
+      firstName: string;
+    };
+    userId: string;
+    boardId: string;
+    created: Date;
+    updated: Date;
+    privileges: "READ_ONLY" | "LOCAL_EDIT" | "GLOBAL_EDIT";
+  }[];
   stage: {
     id: string;
     task: TTask[];
@@ -54,12 +71,26 @@ export default async function tasksPage({
   const [res]: TBoard[] = await (
     await fetch(`http://localhost:8080/board/${params.boardId}`)
   ).json();
+  const allUsers = await (await fetch("http://localhost:8080/user")).json();
 
   console.log(res);
 
   return (
     <main className="bg-neutral-700">
       <h1 className="ml-8 py-8 text-4xl">{res.boardName}</h1>
+      <InviteUser boardId={params.boardId} allUsers={allUsers} />
+      <div className="flex mb-4 ml-8 gap-2">
+        {res.users.map(({ user }, idx) => (
+          <div
+            key={`users-for-board-${idx}`}
+            className="rounded-full h-10 w-10 text-center flex items-center justify-center"
+            style={{ backgroundColor: "#345678" }}
+          >
+            <p>{user?.firstName?.charAt(0).toUpperCase()}</p>
+            <p>{user?.lastName?.charAt(0).toUpperCase()}</p>
+          </div>
+        ))}
+      </div>
       <div className="flex p-8 bg-emerald-900 gap-8 w-full overflow-y-auto">
         {res?.stage?.map(({ stageName, task }, stageIndex) => (
           <TaskGroup

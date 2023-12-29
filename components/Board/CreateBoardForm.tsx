@@ -1,14 +1,15 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const InputForm = () => {
+const InputForm = ({ userId }: { userId: string }) => {
   // Use state to handle inputs
   const [formData, setFormData] = useState({
     boardName: "",
-    userId: "42b64d23-bbd8-470f-a8fa-450dec2ca6c9",
+    userId: userId,
   });
 
+  console.log("Cookies:", document.cookie, " - userId:", userId);
   const { push } = useRouter();
 
   //update use state on change of the form

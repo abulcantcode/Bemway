@@ -202,7 +202,16 @@ SELECT
     ) as "stage"
     FROM "stage"
     WHERE "stage"."boardId" = "board"."id"
-) as "stage"
+) as "stage",
+(
+    SELECT json_agg(
+        to_jsonb("userBoard") ||
+        jsonb_build_object('user', "user")
+    )
+    FROM "userBoard"
+    LEFT JOIN "user" ON "user"."id" = "userBoard"."userId"
+    WHERE "userBoard"."boardId" = "board"."id"
+) as "users"
 FROM "board"
 WHERE "board"."id" = '552fb941-d93b-4db2-a6a2-189431790b13';
 

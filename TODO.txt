@@ -1,0 +1,10 @@
+- rename all default page
+- remove all comments
+- name functions better
+- colocate pages
+- remove testing forms
+- create permissions
+- create server side authentication on session & database calls
+- implement all recommended features to the backend
+- userName -> username
+- rm console log
