@@ -50,7 +50,36 @@ SELECT 'Done', "id" from new_board;
 SELECT "board"."id", "board"."boardName" FROM "board"
 WHERE "board"."ownerId" = $1::uuid;
 `,
+
         [userId]
+      );
+
+      const allBoards = await pool.query(
+        `
+SELECT "board"."id", "board"."boardName" FROM "board"
+LEFT JOIN "userBoard" ON "userBoard"."boardId" = "board"."id"
+WHERE "userBoard"."userId" = $1::uuid;
+`,
+        [userId]
+      );
+      res.status(200).send({ owner: data.rows, all: allBoards.rows });
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  });
+
+  app.post("/board/invite", async (req, res) => {
+    const { userId, boardId } = req.body;
+    console.log("add user to board UserId:", userId);
+    try {
+      const data = await pool.query(
+        `
+INSERT INTO "userBoard" ("userId", "boardId")
+VALUES ($1, $2)
+ON CONFLICT ("userId", "boardId") DO NOTHING;
+`,
+        [userId, boardId] // can later change do nothing to change the status of the connection ("ACTIVE" or "ARCHIVED")
       );
       res.status(200).send(data.rows);
     } catch (err) {
@@ -103,7 +132,16 @@ SELECT
     ) as "stage"
     FROM "stage"
     WHERE "stage"."boardId" = "board"."id"
-) as "stage"
+) as "stage",
+(
+    SELECT json_agg(
+        to_jsonb("userBoard") ||
+        jsonb_build_object('user', "user")
+    )
+    FROM "userBoard"
+    LEFT JOIN "user" ON "user"."id" = "userBoard"."userId"
+    WHERE "userBoard"."boardId" = "board"."id"
+) as "users"
 FROM "board"
 WHERE "board"."id" = $1::uuid;
 `,

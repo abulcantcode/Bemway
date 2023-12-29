@@ -1,14 +1,22 @@
 import { GetServerSideProps } from "next";
 import BoardList from "@/components/Board/BoardList";
+import { cookies } from "next/headers";
 
 export const getData = async (
-  userId: string
-): Promise<
-  {
+  userId?: string
+): Promise<{
+  owner: {
     id: string;
     boardName: string;
-  }[]
-> => {
+  }[];
+  all: {
+    id: string;
+    boardName: string;
+  }[];
+}> => {
+  if (!userId) {
+    return { owner: [], all: [] };
+  }
   // Fetch data from your backend API
   try {
     // const response = await fetch(`http://localhost:8080/board/userId/${userId}`, {
@@ -25,7 +33,7 @@ export const getData = async (
 
     if (response.ok) {
       // Handle success, e.g., show a success message
-      const data: { id: string; boardName: string }[] = await response.json();
+      const data = await response.json();
 
       // Pass the data to the page component
       return data;
@@ -38,11 +46,19 @@ export const getData = async (
     // Handle error, e.g., show an error message
   }
 
-  return [];
+  return { owner: [], all: [] };
 };
 
 export default async function Boards() {
-  const data = await getData("42b64d23-bbd8-470f-a8fa-450dec2ca6c9");
-  console.log(data);
-  return <BoardList boards={data} />;
+  const userId = cookies().get("userId")?.value;
+  console.log(userId);
+
+  const data = await getData(userId);
+  // console.log(data);
+  return (
+    <>
+      <BoardList boards={data.owner} title="Owner" />
+      <BoardList boards={data.all} title="All" />
+    </>
+  );
 }
