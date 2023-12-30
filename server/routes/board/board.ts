@@ -1,5 +1,18 @@
 import { Express } from "express";
 import { pool } from "../../db";
+import type * as s from "zapatos/schema";
+import { QueryResult } from "pg";
+
+export type TBoardData = s.board.Selectable & {
+  users: (s.userBoard.Selectable & { user: s.user.Selectable })[];
+  stage: (s.stage.Selectable & {
+    task: (s.task.Selectable & {
+      userBoardTask: (s.userBoardTask.Selectable & {
+        userBoard: s.userBoard.Selectable & { user: s.user.Selectable };
+      })[];
+    })[];
+  })[];
+};
 
 export default function board(app: Express) {
   app.post("/board/", async (req, res) => {
@@ -62,6 +75,7 @@ WHERE "userBoard"."userId" = $1::uuid;
 `,
         [userId]
       );
+
       res.status(200).send({ owner: data.rows, all: allBoards.rows });
     } catch (err) {
       console.log(err);
@@ -92,7 +106,7 @@ ON CONFLICT ("userId", "boardId") DO NOTHING;
     const { boardId } = req.params;
     console.log("boardId:", boardId);
     try {
-      const data = await pool.query(
+      const data: QueryResult<TBoardData> = await pool.query(
         `
 SELECT
 *,
@@ -147,6 +161,7 @@ WHERE "board"."id" = $1::uuid;
 `,
         [boardId]
       );
+
       res.status(200).send(data.rows);
     } catch (err) {
       console.log(err);

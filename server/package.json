@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon server.ts",
     "debug:watch": "nodemon --inspect src/index.ts",
-    "db": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/user/src/app postgres",
-    "db:live": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/user/src/app postgres",
+    "db": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/var/lib/postgresql/data postgres",
+    "db:live": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/var/lib/postgresql/data postgres",
     "db:kill": "docker rm --force pg-docker",
     "migrate": "npx zapatos"
   },

@@ -1,41 +1,43 @@
-export interface TTask {
-  id: string;
-  due: Date | null;
-  created: Date;
-  stageId: string;
-  updated: Date;
-  dueStart: Date | null;
-  taskName: string | null;
-  description: string | null;
-  taskPriority: null;
-  creatorUserId: string;
-  userBoardTask?: [
-    {
-      id: string;
-      taskId: string;
-      created: Date;
-      updated: Date;
-      userBoard: {
-        id: string;
-        user: {
-          id: string;
-          created: Date;
-          updated: Date;
-          lastName: string | null;
-          userName: string | null;
-          firstName: string | null;
-        };
-        userId: string;
-        boardId: string;
-        created: Date;
-        updated: Date;
-        privileges: "READ_ONLY" | "LOCAL_EDIT" | "GLOBAL_EDIT";
-      };
-      userBoardId: string;
-      assigneeUserId: string;
-    }
-  ];
-}
+import { TBoardData } from "@/server/routes/board/board";
+
+// export interface TTask {
+//   id: string;
+//   due: Date | null;
+//   created: Date;
+//   stageId: string;
+//   updated: Date;
+//   dueStart: Date | null;
+//   taskName: string | null;
+//   description: string | null;
+//   taskPriority: null;
+//   creatorUserId: string;
+//   userBoardTask?: [
+//     {
+//       id: string;
+//       taskId: string;
+//       created: Date;
+//       updated: Date;
+//       userBoard: {
+//         id: string;
+//         user: {
+//           id: string;
+//           created: Date;
+//           updated: Date;
+//           lastName: string | null;
+//           userName: string | null;
+//           firstName: string | null;
+//         };
+//         userId: string;
+//         boardId: string;
+//         created: Date;
+//         updated: Date;
+//         privileges: "READ_ONLY" | "LOCAL_EDIT" | "GLOBAL_EDIT";
+//       };
+//       userBoardId: string;
+//       assigneeUserId: string;
+//     }
+//   ];
+// }
 
 // TODO: get types from DB
 
@@ -46,7 +48,7 @@ export default function Task({
   dueStart,
   taskPriority,
   userBoardTask,
-}: TTask) {
+}: TBoardData["stage"][0]["task"][0]) {
   return (
     <div className="bg-slate-800 rounded-md shadow-lg flex flex-col gap-2 p-4 m-4 w-60">
       <h4>{taskName}</h4>

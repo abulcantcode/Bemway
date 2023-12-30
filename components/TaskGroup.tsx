@@ -1,8 +1,9 @@
-import Task, { TTask } from "./Task";
+import { TBoardData } from "@/server/routes/board/board";
+import Task from "./Task";
 
 interface TTaskGroup {
-  tasks: TTask[];
-  title: string;
+  tasks: TBoardData["stage"][0]["task"];
+  title: string | null;
   // status?: TTask["status"];
 }
 

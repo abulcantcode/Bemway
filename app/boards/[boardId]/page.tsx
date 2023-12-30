@@ -1,40 +1,40 @@
-import Task, { TTask } from "@/components/Task";
 import TaskGroup from "@/components/TaskGroup";
 import InviteUser from "./_inviteUser";
 import CreateTask from "./_createTask";
 import { cookies } from "next/headers";
+import { TBoardData } from "@/server/routes/board/board";
 
-export type TBoard = {
-  id: string;
-  boardName: string;
-  ownerId: string;
-  created: Date;
-  updated: Date;
-  users: {
-    id: string;
-    user: {
-      id: string;
-      created: Date;
-      updated: Date;
-      lastName: string;
-      userName: string | null;
-      firstName: string;
-    };
-    userId: string;
-    boardId: string;
-    created: Date;
-    updated: Date;
-    privileges: "READ_ONLY" | "LOCAL_EDIT" | "GLOBAL_EDIT";
-  }[];
-  stage: {
-    id: string;
-    task: TTask[];
-    boardId: string;
-    created: Date;
-    updated: Date;
-    stageName: string;
-  }[];
-};
+// export type TBoard = {
+//   id: string;
+//   boardName: string;
+//   ownerId: string;
+//   created: Date;
+//   updated: Date;
+//   users: {
+//     id: string;
+//     user: {
+//       id: string;
+//       created: Date;
+//       updated: Date;
+//       lastName: string;
+//       userName: string | null;
+//       firstName: string;
+//     };
+//     userId: string;
+//     boardId: string;
+//     created: Date;
+//     updated: Date;
+//     privileges: "READ_ONLY" | "LOCAL_EDIT" | "GLOBAL_EDIT";
+//   }[];
+//   stage: {
+//     id: string;
+//     task: TTask[];
+//     boardId: string;
+//     created: Date;
+//     updated: Date;
+//     stageName: string;
+//   }[];
+// };
 
 // const tasks: TTask[] = [
 //   {
@@ -70,7 +70,7 @@ export default async function tasksPage({
 }: {
   params: { boardId: string };
 }) {
-  const [res]: TBoard[] = await (
+  const [res]: TBoardData[] = await (
     await fetch(`http://localhost:8080/board/${params.boardId}`)
   ).json();
   const allUsers = await (await fetch("http://localhost:8080/user")).json();
@@ -78,19 +78,19 @@ export default async function tasksPage({
   console.log(res);
 
   return (
-    <main className='bg-neutral-700'>
-      <h1 className='ml-8 py-8 text-4xl'>{res.boardName}</h1>
+    <main className="bg-neutral-700">
+      <h1 className="ml-8 py-8 text-4xl">{res.boardName}</h1>
       <CreateTask
         boardId={params.boardId}
         boardData={res}
         userId={userId || ""}
       />
       <InviteUser boardId={params.boardId} allUsers={allUsers} />
-      <div className='flex mb-4 ml-8 gap-2'>
+      <div className="flex mb-4 ml-8 gap-2">
         {res.users.map(({ user }, idx) => (
           <div
             key={`users-for-board-${idx}`}
-            className='rounded-full h-10 w-10 text-center flex items-center justify-center'
+            className="rounded-full h-10 w-10 text-center flex items-center justify-center"
             style={{ backgroundColor: "#345678" }}
           >
             <p>{user?.firstName?.charAt(0).toUpperCase()}</p>
@@ -98,7 +98,7 @@ export default async function tasksPage({
           </div>
         ))}
       </div>
-      <div className='flex p-8 bg-emerald-900 gap-8 w-full overflow-y-auto'>
+      <div className="flex p-8 bg-emerald-900 gap-8 w-full overflow-y-auto">
         {res?.stage?.map(({ stageName, task }, stageIndex) => (
           <TaskGroup
             key={`stage-${stageIndex}`}

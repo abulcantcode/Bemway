@@ -1,7 +1,7 @@
 "use client";
 
+import { TBoardData } from "@/server/routes/board/board";
 import { useRouter } from "next/navigation";
-import { TBoard } from "./page";
 import { useState } from "react";
 
 export default function CreateTask({
@@ -10,7 +10,7 @@ export default function CreateTask({
   boardData,
 }: {
   boardId: string;
-  boardData: TBoard;
+  boardData: TBoardData;
   userId: string;
 }) {
   const [title, setTitle] = useState("");
@@ -37,7 +37,7 @@ export default function CreateTask({
     refresh();
   };
   return (
-    <div className='ml-8 cursor-pointer bg-white text-black font-bold text-xl p-2 rounded-md w-fit mb-4'>
+    <div className="ml-8 cursor-pointer bg-white text-black font-bold text-xl p-2 rounded-md w-fit mb-4">
       <label>
         Task Name:{" "}
         <input
@@ -48,7 +48,7 @@ export default function CreateTask({
       <label>
         Stage:{" "}
         <select value={stage} onChange={({ target }) => setStage(target.value)}>
-          <option disabled value='select'>
+          <option disabled value="select">
             {" "}
             -- select an option --{" "}
           </option>
@@ -65,7 +65,7 @@ export default function CreateTask({
           value={assignee}
           onChange={({ target }) => setAssignee(target.value)}
         >
-          <option disabled value='select'>
+          <option disabled value="select">
             {" "}
             -- select an option --{" "}
           </option>

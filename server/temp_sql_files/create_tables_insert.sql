@@ -228,3 +228,5 @@ VALUES ('test task 2','ffe530cc-9410-4ca5-b848-7750c9bba2c7','c543c885-bc5b-4de1
 RETURNING "id")
 INSERT INTO "userBoardTask" ("taskId", "userBoardId")
 VALUES ((SELECT "id" FROM newTask), '51145387-c258-480f-b776-4126510fa982'::uuid)
+SELECT json_agg("user") from "user";
+
