@@ -1,4 +1,4 @@
--- Active: 1699820285331@@127.0.0.1@5432@postgres
+-- Active: 1703614797495@@127.0.0.1@5432@postgres
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
@@ -216,3 +216,15 @@ FROM "board"
 WHERE "board"."id" = '552fb941-d93b-4db2-a6a2-189431790b13';
 
 
+
+
+
+
+INSERT INTO "task" ("taskName", "creatorUserId", "stageId") VALUES ('test task 2','ffe530cc-9410-4ca5-b848-7750c9bba2c7','c543c885-bc5b-4de1-8913-131f42714bcd');
+
+
+WITH newTask AS (INSERT INTO "task" ("taskName", "creatorUserId", "stageId") 
+VALUES ('test task 2','ffe530cc-9410-4ca5-b848-7750c9bba2c7','c543c885-bc5b-4de1-8913-131f42714bcd')
+RETURNING "id")
+INSERT INTO "userBoardTask" ("taskId", "userBoardId")
+VALUES ((SELECT "id" FROM newTask), '51145387-c258-480f-b776-4126510fa982'::uuid)

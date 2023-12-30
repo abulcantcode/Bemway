@@ -1,8 +1,7 @@
-import { GetServerSideProps } from "next";
 import BoardList from "@/components/Board/BoardList";
 import { cookies } from "next/headers";
 
-export const getData = async (
+const getData = async (
   userId?: string
 ): Promise<{
   owner: {
@@ -57,8 +56,8 @@ export default async function Boards() {
   // console.log(data);
   return (
     <>
-      <BoardList boards={data.owner} title="Owner" />
-      <BoardList boards={data.all} title="All" />
+      <BoardList boards={data.owner} title='Owner' />
+      <BoardList boards={data.all} title='All' />
     </>
   );
 }
