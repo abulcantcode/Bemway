@@ -15,3 +15,4 @@
 - stop network cache
 - make persistant data storage for database
 - get HTTPS certificate
+- increase readability of server. split out into more routes
