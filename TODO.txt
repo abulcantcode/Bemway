@@ -9,4 +9,9 @@
 - userName -> username
 - rm console log
 - rm assigneeuserid from UBT
-- rm 
+- form handling better
+- styling and components better
+- dark mode
+- stop network cache
+- make persistant data storage for database
+- get HTTPS certificate
