@@ -80,8 +80,9 @@ export default function CreateTask({
       <button
         disabled={!title || stage === "select" || assignee === "select"}
         className={
-          (!title || stage === "select" || assignee === "select") &&
-          "opacity-70"
+          ((!title || stage === "select" || assignee === "select") &&
+            "opacity-70") ||
+          ""
         }
         onClick={postTask}
       >
