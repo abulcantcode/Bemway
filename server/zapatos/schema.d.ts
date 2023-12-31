@@ -7,25 +7,25 @@ Copyright (C) 2020 - 2022 George MacKerron
 Released under the MIT licence: see LICENCE file
 */
 
-declare module "zapatos/schema" {
-  import type * as db from "zapatos/db";
+declare module 'zapatos/schema' {
+
+  import type * as db from 'zapatos/db';
 
   // got a type error on schemaVersionCanary below? update by running `npx zapatos`
-  export interface schemaVersionCanary extends db.SchemaVersionCanary {
-    version: 104;
-  }
+  export interface schemaVersionCanary extends db.SchemaVersionCanary { version: 104 }
+
 
   /* === schema: public === */
 
   /* --- enums --- */
 
-  export type Privileges = "GLOBAL_EDIT" | "LOCAL_EDIT" | "READ_ONLY";
+  export type Privileges = 'GLOBAL_EDIT' | 'LOCAL_EDIT' | 'READ_ONLY';
   export namespace every {
-    export type Privileges = ["GLOBAL_EDIT", "LOCAL_EDIT", "READ_ONLY"];
+    export type Privileges = ['GLOBAL_EDIT', 'LOCAL_EDIT', 'READ_ONLY'];
   }
-  export type priority_enum = "HIGH" | "LOW" | "MEDIUM";
+  export type priority_enum = 'HIGH' | 'LOW' | 'MEDIUM';
   export namespace every {
-    export type priority_enum = ["HIGH", "LOW", "MEDIUM"];
+    export type priority_enum = ['HIGH', 'LOW', 'MEDIUM'];
   }
 
   /* --- tables --- */
@@ -35,301 +35,314 @@ declare module "zapatos/schema" {
    * - Table in database
    */
   export namespace board {
-    export type Table = "board";
+    export type Table = 'board';
     export interface Selectable {
       /**
-       * **board.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **board.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **board.boardName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
+      * **board.boardName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
       boardName: string | null;
       /**
-       * **board.ownerId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **board.ownerId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       ownerId: string | null;
       /**
-       * **board.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **board.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: Date;
       /**
-       * **board.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **board.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: Date;
     }
-    export interface Selectable {
+    export interface JSONSelectable {
       /**
-       * **board.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **board.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **board.boardName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
+      * **board.boardName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
       boardName: string | null;
       /**
-       * **board.ownerId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **board.ownerId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       ownerId: string | null;
       /**
-       * **board.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **board.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: db.TimestampString;
       /**
-       * **board.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **board.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: db.TimestampString;
     }
     export interface Whereable {
       /**
-       * **board.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **board.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **board.boardName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      boardName?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **board.boardName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      boardName?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **board.ownerId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      ownerId?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **board.ownerId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      ownerId?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **board.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **board.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **board.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **board.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
-       * **board.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **board.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
-       * **board.boardName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      boardName?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **board.boardName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      boardName?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **board.ownerId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      ownerId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **board.ownerId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      ownerId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **board.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **board.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
       /**
-       * **board.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **board.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
-       * **board.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.DefaultType | db.SQLFragment
-          >;
+      * **board.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
-       * **board.boardName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      boardName?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **board.boardName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      boardName?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **board.ownerId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      ownerId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **board.ownerId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      ownerId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **board.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **board.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
       /**
-       * **board.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **board.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
     }
-    export type UniqueIndex = "board_pkey";
+    export type UniqueIndex = 'board_pkey';
     export type Column = keyof Selectable;
-    export type OnlyCols<T extends readonly Column[]> = Pick<
-      Selectable,
-      T[number]
-    >;
-    export type SQLExpression =
-      | Table
-      | db.ColumnNames<Updatable | (keyof Updatable)[]>
-      | db.ColumnValues<Updatable>
-      | Whereable
-      | Column
-      | db.ParentColumn
-      | db.GenericSQLExpression;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **migrations**
+   * - Table in database
+   */
+  export namespace migrations {
+    export type Table = 'migrations';
+    export interface Selectable {
+      /**
+      * **migrations.id**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      id: number;
+      /**
+      * **migrations.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string;
+      /**
+      * **migrations.hash**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      hash: string;
+      /**
+      * **migrations.executed_at**
+      * - `timestamp` in database
+      * - Nullable, default: `CURRENT_TIMESTAMP`
+      */
+      executed_at: Date | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **migrations.id**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      id: number;
+      /**
+      * **migrations.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string;
+      /**
+      * **migrations.hash**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      hash: string;
+      /**
+      * **migrations.executed_at**
+      * - `timestamp` in database
+      * - Nullable, default: `CURRENT_TIMESTAMP`
+      */
+      executed_at: db.TimestampString | null;
+    }
+    export interface Whereable {
+      /**
+      * **migrations.id**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      id?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **migrations.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **migrations.hash**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      hash?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **migrations.executed_at**
+      * - `timestamp` in database
+      * - Nullable, default: `CURRENT_TIMESTAMP`
+      */
+      executed_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **migrations.id**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      id: number | db.Parameter<number> | db.SQLFragment;
+      /**
+      * **migrations.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **migrations.hash**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      hash: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **migrations.executed_at**
+      * - `timestamp` in database
+      * - Nullable, default: `CURRENT_TIMESTAMP`
+      */
+      executed_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **migrations.id**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      id?: number | db.Parameter<number> | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment>;
+      /**
+      * **migrations.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **migrations.hash**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      hash?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **migrations.executed_at**
+      * - `timestamp` in database
+      * - Nullable, default: `CURRENT_TIMESTAMP`
+      */
+      executed_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'migrations_name_key' | 'migrations_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
     export type SQL = SQLExpression | SQLExpression[];
   }
 
@@ -338,301 +351,171 @@ declare module "zapatos/schema" {
    * - Table in database
    */
   export namespace stage {
-    export type Table = "stage";
+    export type Table = 'stage';
     export interface Selectable {
       /**
-       * **stage.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **stage.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **stage.stageName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
+      * **stage.stageName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
       stageName: string | null;
       /**
-       * **stage.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **stage.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       boardId: string | null;
       /**
-       * **stage.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **stage.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: Date;
       /**
-       * **stage.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **stage.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: Date;
     }
     export interface JSONSelectable {
       /**
-       * **stage.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **stage.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **stage.stageName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
+      * **stage.stageName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
       stageName: string | null;
       /**
-       * **stage.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **stage.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       boardId: string | null;
       /**
-       * **stage.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **stage.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: db.TimestampString;
       /**
-       * **stage.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **stage.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: db.TimestampString;
     }
     export interface Whereable {
       /**
-       * **stage.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **stage.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **stage.stageName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      stageName?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **stage.stageName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      stageName?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **stage.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      boardId?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **stage.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      boardId?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **stage.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **stage.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **stage.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **stage.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
-       * **stage.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **stage.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
-       * **stage.stageName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      stageName?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **stage.stageName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      stageName?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **stage.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      boardId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **stage.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      boardId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **stage.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **stage.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
       /**
-       * **stage.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **stage.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
-       * **stage.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.DefaultType | db.SQLFragment
-          >;
+      * **stage.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
-       * **stage.stageName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      stageName?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **stage.stageName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      stageName?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **stage.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      boardId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **stage.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      boardId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **stage.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **stage.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
       /**
-       * **stage.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **stage.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
     }
-    export type UniqueIndex = "stage_pkey";
+    export type UniqueIndex = 'stage_pkey';
     export type Column = keyof Selectable;
-    export type OnlyCols<T extends readonly Column[]> = Pick<
-      Selectable,
-      T[number]
-    >;
-    export type SQLExpression =
-      | Table
-      | db.ColumnNames<Updatable | (keyof Updatable)[]>
-      | db.ColumnValues<Updatable>
-      | Whereable
-      | Column
-      | db.ParentColumn
-      | db.GenericSQLExpression;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
     export type SQL = SQLExpression | SQLExpression[];
   }
 
@@ -641,590 +524,321 @@ declare module "zapatos/schema" {
    * - Table in database
    */
   export namespace task {
-    export type Table = "task";
+    export type Table = 'task';
     export interface Selectable {
       /**
-       * **task.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **task.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **task.taskName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
+      * **task.taskName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
       taskName: string | null;
       /**
-       * **task.creatorUserId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **task.creatorUserId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       creatorUserId: string | null;
       /**
-       * **task.stageId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **task.stageId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       stageId: string | null;
       /**
-       * **task.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **task.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: Date;
       /**
-       * **task.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **task.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: Date;
       /**
-       * **task.description**
-       * - `text` in database
-       * - Nullable, no default
-       */
+      * **task.description**
+      * - `text` in database
+      * - Nullable, no default
+      */
       description: string | null;
       /**
-       * **task.due**
-       * - `date` in database
-       * - Nullable, no default
-       */
+      * **task.due**
+      * - `date` in database
+      * - Nullable, no default
+      */
       due: Date | null;
       /**
-       * **task.dueStart**
-       * - `date` in database
-       * - Nullable, no default
-       */
+      * **task.dueStart**
+      * - `date` in database
+      * - Nullable, no default
+      */
       dueStart: Date | null;
       /**
-       * **task.taskPriority**
-       * - `priority_enum` in database
-       * - Nullable, no default
-       */
+      * **task.taskPriority**
+      * - `priority_enum` in database
+      * - Nullable, no default
+      */
       taskPriority: priority_enum | null;
     }
     export interface JSONSelectable {
       /**
-       * **task.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **task.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **task.taskName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
+      * **task.taskName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
       taskName: string | null;
       /**
-       * **task.creatorUserId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **task.creatorUserId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       creatorUserId: string | null;
       /**
-       * **task.stageId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **task.stageId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       stageId: string | null;
       /**
-       * **task.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **task.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: db.TimestampString;
       /**
-       * **task.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **task.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: db.TimestampString;
       /**
-       * **task.description**
-       * - `text` in database
-       * - Nullable, no default
-       */
+      * **task.description**
+      * - `text` in database
+      * - Nullable, no default
+      */
       description: string | null;
       /**
-       * **task.due**
-       * - `date` in database
-       * - Nullable, no default
-       */
+      * **task.due**
+      * - `date` in database
+      * - Nullable, no default
+      */
       due: db.DateString | null;
       /**
-       * **task.dueStart**
-       * - `date` in database
-       * - Nullable, no default
-       */
+      * **task.dueStart**
+      * - `date` in database
+      * - Nullable, no default
+      */
       dueStart: db.DateString | null;
       /**
-       * **task.taskPriority**
-       * - `priority_enum` in database
-       * - Nullable, no default
-       */
+      * **task.taskPriority**
+      * - `priority_enum` in database
+      * - Nullable, no default
+      */
       taskPriority: priority_enum | null;
     }
     export interface Whereable {
       /**
-       * **task.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **task.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **task.taskName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      taskName?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **task.taskName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      taskName?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **task.creatorUserId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      creatorUserId?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **task.creatorUserId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      creatorUserId?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **task.stageId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      stageId?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **task.stageId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      stageId?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **task.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **task.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **task.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **task.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **task.description**
-       * - `text` in database
-       * - Nullable, no default
-       */
-      description?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **task.description**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      description?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **task.due**
-       * - `date` in database
-       * - Nullable, no default
-       */
-      due?:
-        | (db.DateString | Date)
-        | db.Parameter<db.DateString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.DateString | Date)
-            | db.Parameter<db.DateString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **task.due**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      due?: (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **task.dueStart**
-       * - `date` in database
-       * - Nullable, no default
-       */
-      dueStart?:
-        | (db.DateString | Date)
-        | db.Parameter<db.DateString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.DateString | Date)
-            | db.Parameter<db.DateString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **task.dueStart**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      dueStart?: (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **task.taskPriority**
-       * - `priority_enum` in database
-       * - Nullable, no default
-       */
-      taskPriority?:
-        | priority_enum
-        | db.Parameter<priority_enum>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | priority_enum
-            | db.Parameter<priority_enum>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **task.taskPriority**
+      * - `priority_enum` in database
+      * - Nullable, no default
+      */
+      taskPriority?: priority_enum | db.Parameter<priority_enum> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, priority_enum | db.Parameter<priority_enum> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
-       * **task.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **task.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
-       * **task.taskName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      taskName?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **task.taskName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      taskName?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **task.creatorUserId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      creatorUserId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **task.creatorUserId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      creatorUserId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **task.stageId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      stageId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **task.stageId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      stageId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **task.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **task.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
       /**
-       * **task.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **task.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
       /**
-       * **task.description**
-       * - `text` in database
-       * - Nullable, no default
-       */
-      description?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **task.description**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      description?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **task.due**
-       * - `date` in database
-       * - Nullable, no default
-       */
-      due?:
-        | (db.DateString | Date)
-        | db.Parameter<db.DateString | Date>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **task.due**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      due?: (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **task.dueStart**
-       * - `date` in database
-       * - Nullable, no default
-       */
-      dueStart?:
-        | (db.DateString | Date)
-        | db.Parameter<db.DateString | Date>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **task.dueStart**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      dueStart?: (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **task.taskPriority**
-       * - `priority_enum` in database
-       * - Nullable, no default
-       */
-      taskPriority?:
-        | priority_enum
-        | db.Parameter<priority_enum>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **task.taskPriority**
+      * - `priority_enum` in database
+      * - Nullable, no default
+      */
+      taskPriority?: priority_enum | db.Parameter<priority_enum> | null | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
-       * **task.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.DefaultType | db.SQLFragment
-          >;
+      * **task.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
-       * **task.taskName**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      taskName?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **task.taskName**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      taskName?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **task.creatorUserId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      creatorUserId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **task.creatorUserId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      creatorUserId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **task.stageId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      stageId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **task.stageId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      stageId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **task.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **task.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
       /**
-       * **task.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **task.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
       /**
-       * **task.description**
-       * - `text` in database
-       * - Nullable, no default
-       */
-      description?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **task.description**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      description?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **task.due**
-       * - `date` in database
-       * - Nullable, no default
-       */
-      due?:
-        | (db.DateString | Date)
-        | db.Parameter<db.DateString | Date>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.DateString | Date)
-            | db.Parameter<db.DateString | Date>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **task.due**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      due?: (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **task.dueStart**
-       * - `date` in database
-       * - Nullable, no default
-       */
-      dueStart?:
-        | (db.DateString | Date)
-        | db.Parameter<db.DateString | Date>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.DateString | Date)
-            | db.Parameter<db.DateString | Date>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **task.dueStart**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      dueStart?: (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **task.taskPriority**
-       * - `priority_enum` in database
-       * - Nullable, no default
-       */
-      taskPriority?:
-        | priority_enum
-        | db.Parameter<priority_enum>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | priority_enum
-            | db.Parameter<priority_enum>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **task.taskPriority**
+      * - `priority_enum` in database
+      * - Nullable, no default
+      */
+      taskPriority?: priority_enum | db.Parameter<priority_enum> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, priority_enum | db.Parameter<priority_enum> | null | db.DefaultType | db.SQLFragment>;
     }
-    export type UniqueIndex = "task_pkey";
+    export type UniqueIndex = 'task_pkey';
     export type Column = keyof Selectable;
-    export type OnlyCols<T extends readonly Column[]> = Pick<
-      Selectable,
-      T[number]
-    >;
-    export type SQLExpression =
-      | Table
-      | db.ColumnNames<Updatable | (keyof Updatable)[]>
-      | db.ColumnValues<Updatable>
-      | Whereable
-      | Column
-      | db.ParentColumn
-      | db.GenericSQLExpression;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
     export type SQL = SQLExpression | SQLExpression[];
   }
 
@@ -1233,345 +847,201 @@ declare module "zapatos/schema" {
    * - Table in database
    */
   export namespace user {
-    export type Table = "user";
+    export type Table = 'user';
     export interface Selectable {
       /**
-       * **user.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **user.email**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
+      * **user.email**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
       email: string | null;
       /**
-       * **user.firstName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
+      * **user.firstName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
       firstName: string;
       /**
-       * **user.lastName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
+      * **user.lastName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
       lastName: string;
       /**
-       * **user.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **user.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: Date;
       /**
-       * **user.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **user.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: Date;
     }
     export interface JSONSelectable {
       /**
-       * **user.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **user.email**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
+      * **user.email**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
       email: string | null;
       /**
-       * **user.firstName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
+      * **user.firstName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
       firstName: string;
       /**
-       * **user.lastName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
+      * **user.lastName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
       lastName: string;
       /**
-       * **user.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **user.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: db.TimestampString;
       /**
-       * **user.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **user.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: db.TimestampString;
     }
     export interface Whereable {
       /**
-       * **user.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **user.email**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      email?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **user.email**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      email?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **user.firstName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
-      firstName?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **user.firstName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
+      firstName?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **user.lastName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
-      lastName?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **user.lastName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
+      lastName?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **user.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **user.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **user.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **user.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
-       * **user.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
-       * **user.email**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      email?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **user.email**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      email?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **user.firstName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
-      firstName?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **user.firstName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
+      firstName?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
-       * **user.lastName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
-      lastName?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **user.lastName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
+      lastName?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
-       * **user.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **user.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
       /**
-       * **user.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **user.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
-       * **user.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.DefaultType | db.SQLFragment
-          >;
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
-       * **user.email**
-       * - `varchar` in database
-       * - Nullable, no default
-       */
-      email?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **user.email**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      email?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **user.firstName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
-      firstName?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.DefaultType | db.SQLFragment
-          >;
+      * **user.firstName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
+      firstName?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
-       * **user.lastName**
-       * - `text` in database
-       * - `NOT NULL`, default: `''::text`
-       */
-      lastName?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.DefaultType | db.SQLFragment
-          >;
+      * **user.lastName**
+      * - `text` in database
+      * - `NOT NULL`, default: `''::text`
+      */
+      lastName?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
-       * **user.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **user.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
       /**
-       * **user.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **user.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
     }
-    export type UniqueIndex = "user_pkey";
+    export type UniqueIndex = 'user_pkey';
     export type Column = keyof Selectable;
-    export type OnlyCols<T extends readonly Column[]> = Pick<
-      Selectable,
-      T[number]
-    >;
-    export type SQLExpression =
-      | Table
-      | db.ColumnNames<Updatable | (keyof Updatable)[]>
-      | db.ColumnValues<Updatable>
-      | Whereable
-      | Column
-      | db.ParentColumn
-      | db.GenericSQLExpression;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
     export type SQL = SQLExpression | SQLExpression[];
   }
 
@@ -1580,360 +1050,201 @@ declare module "zapatos/schema" {
    * - Table in database
    */
   export namespace userBoard {
-    export type Table = "userBoard";
+    export type Table = 'userBoard';
     export interface Selectable {
       /**
-       * **userBoard.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **userBoard.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **userBoard.userId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **userBoard.userId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       userId: string | null;
       /**
-       * **userBoard.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **userBoard.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       boardId: string | null;
       /**
-       * **userBoard.privileges**
-       * - `Privileges` in database
-       * - Nullable, default: `'READ_ONLY'::"Privileges"`
-       */
+      * **userBoard.privileges**
+      * - `Privileges` in database
+      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      */
       privileges: Privileges | null;
       /**
-       * **userBoard.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **userBoard.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: Date;
       /**
-       * **userBoard.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **userBoard.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: Date;
     }
     export interface JSONSelectable {
       /**
-       * **userBoard.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **userBoard.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **userBoard.userId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **userBoard.userId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       userId: string | null;
       /**
-       * **userBoard.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **userBoard.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       boardId: string | null;
       /**
-       * **userBoard.privileges**
-       * - `Privileges` in database
-       * - Nullable, default: `'READ_ONLY'::"Privileges"`
-       */
+      * **userBoard.privileges**
+      * - `Privileges` in database
+      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      */
       privileges: Privileges | null;
       /**
-       * **userBoard.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **userBoard.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: db.TimestampString;
       /**
-       * **userBoard.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **userBoard.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: db.TimestampString;
     }
     export interface Whereable {
       /**
-       * **userBoard.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **userBoard.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **userBoard.userId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      userId?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **userBoard.userId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      userId?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **userBoard.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      boardId?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **userBoard.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      boardId?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **userBoard.privileges**
-       * - `Privileges` in database
-       * - Nullable, default: `'READ_ONLY'::"Privileges"`
-       */
-      privileges?:
-        | Privileges
-        | db.Parameter<Privileges>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | Privileges
-            | db.Parameter<Privileges>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **userBoard.privileges**
+      * - `Privileges` in database
+      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      */
+      privileges?: Privileges | db.Parameter<Privileges> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, Privileges | db.Parameter<Privileges> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **userBoard.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **userBoard.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **userBoard.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **userBoard.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
-       * **userBoard.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **userBoard.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
-       * **userBoard.userId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      userId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **userBoard.userId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      userId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **userBoard.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      boardId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **userBoard.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      boardId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **userBoard.privileges**
-       * - `Privileges` in database
-       * - Nullable, default: `'READ_ONLY'::"Privileges"`
-       */
-      privileges?:
-        | Privileges
-        | db.Parameter<Privileges>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **userBoard.privileges**
+      * - `Privileges` in database
+      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      */
+      privileges?: Privileges | db.Parameter<Privileges> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **userBoard.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **userBoard.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
       /**
-       * **userBoard.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **userBoard.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
-       * **userBoard.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.DefaultType | db.SQLFragment
-          >;
+      * **userBoard.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
-       * **userBoard.userId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      userId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **userBoard.userId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      userId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **userBoard.boardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      boardId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **userBoard.boardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      boardId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **userBoard.privileges**
-       * - `Privileges` in database
-       * - Nullable, default: `'READ_ONLY'::"Privileges"`
-       */
-      privileges?:
-        | Privileges
-        | db.Parameter<Privileges>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | Privileges
-            | db.Parameter<Privileges>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **userBoard.privileges**
+      * - `Privileges` in database
+      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      */
+      privileges?: Privileges | db.Parameter<Privileges> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, Privileges | db.Parameter<Privileges> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **userBoard.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **userBoard.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
       /**
-       * **userBoard.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **userBoard.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
     }
-    export type UniqueIndex = "userBoard_pkey" | "userBoard_userId_boardId_key";
+    export type UniqueIndex = 'userBoard_pkey' | 'userBoard_userId_boardId_key';
     export type Column = keyof Selectable;
-    export type OnlyCols<T extends readonly Column[]> = Pick<
-      Selectable,
-      T[number]
-    >;
-    export type SQLExpression =
-      | Table
-      | db.ColumnNames<Updatable | (keyof Updatable)[]>
-      | db.ColumnValues<Updatable>
-      | Whereable
-      | Column
-      | db.ParentColumn
-      | db.GenericSQLExpression;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
     export type SQL = SQLExpression | SQLExpression[];
   }
 
@@ -1942,388 +1253,198 @@ declare module "zapatos/schema" {
    * - Table in database
    */
   export namespace userBoardTask {
-    export type Table = "userBoardTask";
+    export type Table = 'userBoardTask';
     export interface Selectable {
       /**
-       * **userBoardTask.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **userBoardTask.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **userBoardTask.taskId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **userBoardTask.taskId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       taskId: string | null;
       /**
-       * **userBoardTask.userBoardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **userBoardTask.userBoardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       userBoardId: string | null;
       /**
-       * **userBoardTask.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **userBoardTask.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: Date;
       /**
-       * **userBoardTask.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **userBoardTask.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: Date;
     }
     export interface JSONSelectable {
       /**
-       * **userBoardTask.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **userBoardTask.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id: string;
       /**
-       * **userBoardTask.taskId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **userBoardTask.taskId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       taskId: string | null;
       /**
-       * **userBoardTask.userBoardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
+      * **userBoardTask.userBoardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
       userBoardId: string | null;
       /**
-       * **userBoardTask.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **userBoardTask.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       created: db.TimestampString;
       /**
-       * **userBoardTask.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
+      * **userBoardTask.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
       updated: db.TimestampString;
     }
     export interface Whereable {
       /**
-       * **userBoardTask.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **userBoardTask.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **userBoardTask.taskId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      taskId?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **userBoardTask.taskId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      taskId?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **userBoardTask.userBoardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      userBoardId?:
-        | string
-        | db.Parameter<string>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.SQLFragment | db.ParentColumn
-          >;
+      * **userBoardTask.userBoardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      userBoardId?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **userBoardTask.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **userBoardTask.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-       * **userBoardTask.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.SQLFragment
-        | db.ParentColumn
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.SQLFragment
-            | db.ParentColumn
-          >;
+      * **userBoardTask.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
-       * **userBoardTask.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
+      * **userBoardTask.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
-       * **userBoardTask.taskId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      taskId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **userBoardTask.taskId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      taskId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **userBoardTask.userBoardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      userBoardId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment;
+      * **userBoardTask.userBoardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      userBoardId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
       /**
-       * **userBoardTask.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **userBoardTask.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
       /**
-       * **userBoardTask.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment;
+      * **userBoardTask.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
-       * **userBoardTask.id**
-       * - `uuid` in database
-       * - `NOT NULL`, default: `uuid_generate_v4()`
-       */
-      id?:
-        | string
-        | db.Parameter<string>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            string | db.Parameter<string> | db.DefaultType | db.SQLFragment
-          >;
+      * **userBoardTask.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
-       * **userBoardTask.taskId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      taskId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **userBoardTask.taskId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      taskId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **userBoardTask.userBoardId**
-       * - `uuid` in database
-       * - Nullable, no default
-       */
-      userBoardId?:
-        | string
-        | db.Parameter<string>
-        | null
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | string
-            | db.Parameter<string>
-            | null
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **userBoardTask.userBoardId**
+      * - `uuid` in database
+      * - Nullable, no default
+      */
+      userBoardId?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
       /**
-       * **userBoardTask.created**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      created?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **userBoardTask.created**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      created?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
       /**
-       * **userBoardTask.updated**
-       * - `timestamp` in database
-       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
-       */
-      updated?:
-        | (db.TimestampString | Date)
-        | db.Parameter<db.TimestampString | Date>
-        | db.DefaultType
-        | db.SQLFragment
-        | db.SQLFragment<
-            any,
-            | (db.TimestampString | Date)
-            | db.Parameter<db.TimestampString | Date>
-            | db.DefaultType
-            | db.SQLFragment
-          >;
+      * **userBoardTask.updated**
+      * - `timestamp` in database
+      * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
+      */
+      updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
     }
-    export type UniqueIndex = "userBoardTask_pkey";
+    export type UniqueIndex = 'userBoardTask_pkey';
     export type Column = keyof Selectable;
-    export type OnlyCols<T extends readonly Column[]> = Pick<
-      Selectable,
-      T[number]
-    >;
-    export type SQLExpression =
-      | Table
-      | db.ColumnNames<Updatable | (keyof Updatable)[]>
-      | db.ColumnValues<Updatable>
-      | Whereable
-      | Column
-      | db.ParentColumn
-      | db.GenericSQLExpression;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
     export type SQL = SQLExpression | SQLExpression[];
   }
 
   /* --- aggregate types --- */
 
-  export namespace public {
-    export type Table =
-      | board.Table
-      | stage.Table
-      | task.Table
-      | user.Table
-      | userBoard.Table
-      | userBoardTask.Table;
-    export type Selectable =
-      | board.Selectable
-      | stage.Selectable
-      | task.Selectable
-      | user.Selectable
-      | userBoard.Selectable
-      | userBoardTask.Selectable;
-    export type JSONSelectable =
-      | board.Selectable
-      | stage.JSONSelectable
-      | task.JSONSelectable
-      | user.JSONSelectable
-      | userBoard.JSONSelectable
-      | userBoardTask.JSONSelectable;
-    export type Whereable =
-      | board.Whereable
-      | stage.Whereable
-      | task.Whereable
-      | user.Whereable
-      | userBoard.Whereable
-      | userBoardTask.Whereable;
-    export type Insertable =
-      | board.Insertable
-      | stage.Insertable
-      | task.Insertable
-      | user.Insertable
-      | userBoard.Insertable
-      | userBoardTask.Insertable;
-    export type Updatable =
-      | board.Updatable
-      | stage.Updatable
-      | task.Updatable
-      | user.Updatable
-      | userBoard.Updatable
-      | userBoardTask.Updatable;
-    export type UniqueIndex =
-      | board.UniqueIndex
-      | stage.UniqueIndex
-      | task.UniqueIndex
-      | user.UniqueIndex
-      | userBoard.UniqueIndex
-      | userBoardTask.UniqueIndex;
-    export type Column =
-      | board.Column
-      | stage.Column
-      | task.Column
-      | user.Column
-      | userBoard.Column
-      | userBoardTask.Column;
-
-    export type AllBaseTables = [
-      board.Table,
-      stage.Table,
-      task.Table,
-      user.Table,
-      userBoard.Table,
-      userBoardTask.Table
-    ];
+  export namespace public {  
+    export type Table = board.Table | migrations.Table | stage.Table | task.Table | user.Table | userBoard.Table | userBoardTask.Table;
+    export type Selectable = board.Selectable | migrations.Selectable | stage.Selectable | task.Selectable | user.Selectable | userBoard.Selectable | userBoardTask.Selectable;
+    export type JSONSelectable = board.JSONSelectable | migrations.JSONSelectable | stage.JSONSelectable | task.JSONSelectable | user.JSONSelectable | userBoard.JSONSelectable | userBoardTask.JSONSelectable;
+    export type Whereable = board.Whereable | migrations.Whereable | stage.Whereable | task.Whereable | user.Whereable | userBoard.Whereable | userBoardTask.Whereable;
+    export type Insertable = board.Insertable | migrations.Insertable | stage.Insertable | task.Insertable | user.Insertable | userBoard.Insertable | userBoardTask.Insertable;
+    export type Updatable = board.Updatable | migrations.Updatable | stage.Updatable | task.Updatable | user.Updatable | userBoard.Updatable | userBoardTask.Updatable;
+    export type UniqueIndex = board.UniqueIndex | migrations.UniqueIndex | stage.UniqueIndex | task.UniqueIndex | user.UniqueIndex | userBoard.UniqueIndex | userBoardTask.UniqueIndex;
+    export type Column = board.Column | migrations.Column | stage.Column | task.Column | user.Column | userBoard.Column | userBoardTask.Column;
+  
+    export type AllBaseTables = [board.Table, migrations.Table, stage.Table, task.Table, user.Table, userBoard.Table, userBoardTask.Table];
     export type AllForeignTables = [];
     export type AllViews = [];
     export type AllMaterializedViews = [];
-    export type AllTablesAndViews = [
-      board.Table,
-      stage.Table,
-      task.Table,
-      user.Table,
-      userBoard.Table,
-      userBoardTask.Table
-    ];
+    export type AllTablesAndViews = [board.Table, migrations.Table, stage.Table, task.Table, user.Table, userBoard.Table, userBoardTask.Table];
   }
+
+
 
   /* === global aggregate types === */
 
-  export type Schema = "public";
+  export type Schema = 'public';
   export type Table = public.Table;
   export type Selectable = public.Selectable;
   export type JSONSelectable = public.JSONSelectable;
@@ -2333,84 +1454,94 @@ declare module "zapatos/schema" {
   export type UniqueIndex = public.UniqueIndex;
   export type Column = public.Column;
 
-  export type AllSchemas = ["public"];
+  export type AllSchemas = ['public'];
   export type AllBaseTables = [...public.AllBaseTables];
   export type AllForeignTables = [...public.AllForeignTables];
   export type AllViews = [...public.AllViews];
   export type AllMaterializedViews = [...public.AllMaterializedViews];
   export type AllTablesAndViews = [...public.AllTablesAndViews];
 
+
   /* === lookups === */
 
   export type SelectableForTable<T extends Table> = {
-    board: board.Selectable;
-    stage: stage.Selectable;
-    task: task.Selectable;
-    user: user.Selectable;
-    userBoard: userBoard.Selectable;
-    userBoardTask: userBoardTask.Selectable;
+    "board": board.Selectable;
+    "migrations": migrations.Selectable;
+    "stage": stage.Selectable;
+    "task": task.Selectable;
+    "user": user.Selectable;
+    "userBoard": userBoard.Selectable;
+    "userBoardTask": userBoardTask.Selectable;
   }[T];
 
   export type JSONSelectableForTable<T extends Table> = {
-    board: board.Selectable;
-    stage: stage.JSONSelectable;
-    task: task.JSONSelectable;
-    user: user.JSONSelectable;
-    userBoard: userBoard.JSONSelectable;
-    userBoardTask: userBoardTask.JSONSelectable;
+    "board": board.JSONSelectable;
+    "migrations": migrations.JSONSelectable;
+    "stage": stage.JSONSelectable;
+    "task": task.JSONSelectable;
+    "user": user.JSONSelectable;
+    "userBoard": userBoard.JSONSelectable;
+    "userBoardTask": userBoardTask.JSONSelectable;
   }[T];
 
   export type WhereableForTable<T extends Table> = {
-    board: board.Whereable;
-    stage: stage.Whereable;
-    task: task.Whereable;
-    user: user.Whereable;
-    userBoard: userBoard.Whereable;
-    userBoardTask: userBoardTask.Whereable;
+    "board": board.Whereable;
+    "migrations": migrations.Whereable;
+    "stage": stage.Whereable;
+    "task": task.Whereable;
+    "user": user.Whereable;
+    "userBoard": userBoard.Whereable;
+    "userBoardTask": userBoardTask.Whereable;
   }[T];
 
   export type InsertableForTable<T extends Table> = {
-    board: board.Insertable;
-    stage: stage.Insertable;
-    task: task.Insertable;
-    user: user.Insertable;
-    userBoard: userBoard.Insertable;
-    userBoardTask: userBoardTask.Insertable;
+    "board": board.Insertable;
+    "migrations": migrations.Insertable;
+    "stage": stage.Insertable;
+    "task": task.Insertable;
+    "user": user.Insertable;
+    "userBoard": userBoard.Insertable;
+    "userBoardTask": userBoardTask.Insertable;
   }[T];
 
   export type UpdatableForTable<T extends Table> = {
-    board: board.Updatable;
-    stage: stage.Updatable;
-    task: task.Updatable;
-    user: user.Updatable;
-    userBoard: userBoard.Updatable;
-    userBoardTask: userBoardTask.Updatable;
+    "board": board.Updatable;
+    "migrations": migrations.Updatable;
+    "stage": stage.Updatable;
+    "task": task.Updatable;
+    "user": user.Updatable;
+    "userBoard": userBoard.Updatable;
+    "userBoardTask": userBoardTask.Updatable;
   }[T];
 
   export type UniqueIndexForTable<T extends Table> = {
-    board: board.UniqueIndex;
-    stage: stage.UniqueIndex;
-    task: task.UniqueIndex;
-    user: user.UniqueIndex;
-    userBoard: userBoard.UniqueIndex;
-    userBoardTask: userBoardTask.UniqueIndex;
+    "board": board.UniqueIndex;
+    "migrations": migrations.UniqueIndex;
+    "stage": stage.UniqueIndex;
+    "task": task.UniqueIndex;
+    "user": user.UniqueIndex;
+    "userBoard": userBoard.UniqueIndex;
+    "userBoardTask": userBoardTask.UniqueIndex;
   }[T];
 
   export type ColumnForTable<T extends Table> = {
-    board: board.Column;
-    stage: stage.Column;
-    task: task.Column;
-    user: user.Column;
-    userBoard: userBoard.Column;
-    userBoardTask: userBoardTask.Column;
+    "board": board.Column;
+    "migrations": migrations.Column;
+    "stage": stage.Column;
+    "task": task.Column;
+    "user": user.Column;
+    "userBoard": userBoard.Column;
+    "userBoardTask": userBoardTask.Column;
   }[T];
 
   export type SQLForTable<T extends Table> = {
-    board: board.SQL;
-    stage: stage.SQL;
-    task: task.SQL;
-    user: user.SQL;
-    userBoard: userBoard.SQL;
-    userBoardTask: userBoardTask.SQL;
+    "board": board.SQL;
+    "migrations": migrations.SQL;
+    "stage": stage.SQL;
+    "task": task.SQL;
+    "user": user.SQL;
+    "userBoard": userBoard.SQL;
+    "userBoardTask": userBoardTask.SQL;
   }[T];
+
 }
