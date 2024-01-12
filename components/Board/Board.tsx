@@ -28,16 +28,21 @@ export default function Board({
   return (
     <>
       <div className="flex flex-col dark:bg-black dark:bg-opacity-50 bg-opacity-50 bg-stone-300">
-        <h1 className="ml-8 pt-8 mb-4 text-4xl dark:text-white text-black font-light dark:font-extralight">
+        <h1 className="ml-8 pt-16 sm:pt-8 mb-4 text-2xl md:text-4xl dark:text-white text-black font-light dark:font-extralight">
           {boardInfo.boardName}
         </h1>
 
-        <div className="flex mb-4 ml-8 gap-2">
+        <div className="flex mb-4 ml-8 gap-2 flex-wrap">
           {boardInfo.users.map(({ user }, idx) => (
-            <UserProfile {...user} key={`users-for-board-${idx}`} />
+            <UserProfile
+              {...user}
+              key={`users-for-board-${idx}`}
+              baseSize="md"
+              size="sm"
+            />
           ))}
         </div>
-        <div className="flex gap-4 mb-4 ml-8">
+        <div className="flex gap-4 mb-4 ml-8 flex-wrap">
           <InviteUserModal
             boardId={boardId}
             refetchBoardInfo={refetchBoardInfo}

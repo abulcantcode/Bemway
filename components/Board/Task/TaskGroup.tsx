@@ -65,7 +65,7 @@ export default function TaskGroup({
                 >
                   {title}
                 </h3>
-                <hr className="w-[350px] opacity-10 border-black mb-1" />
+                <hr className="w-[250px] md:w-[350px] opacity-10 border-black mb-1" />
                 {tasks
                   // .filter((task) => (status ? task.status === status : true))
                   .map((task, taskNo) => (

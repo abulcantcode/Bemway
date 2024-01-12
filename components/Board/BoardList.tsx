@@ -15,7 +15,7 @@ export default function BoardList({
 }) {
   return (
     <div className="flex flex-col gap-4 p-6 sm:p-8 md:p-16">
-      <div className="flex justify-between flex-wrap gap-8 mb-8">
+      <div className="flex justify-between flex-wrap gap-8 mb-8 md:mt-4 mt-16">
         <h1 className="text-black font-extralight text-5xl dark:text-white">
           {title}
         </h1>
@@ -31,11 +31,11 @@ export default function BoardList({
       {boards?.map &&
         boards?.map(({ boardName, id, isOwner }, index) => (
           <a href={`./board/${id}`} key={`board-${index}`}>
-            <div className="p-10 text-2xl bg-black dark:text-white text-black flex justify-between items-center bg-opacity-20">
+            <div className="p-10 text-2xl bg-black dark:text-white text-black flex flex-col-reverse md:flex-row justify-between md:items-center bg-opacity-20">
               {boardName}
               <div
                 className={classNames(
-                  "bg-red-500 px-2 py-1 rounded-md text-sm font-bold w-fit ml-4",
+                  "bg-red-500 px-2 py-1 rounded-md text-sm font-bold w-fit md:ml-4 md:mb-0 mb-4",
                   { invisible: !isOwner }
                 )}
               >

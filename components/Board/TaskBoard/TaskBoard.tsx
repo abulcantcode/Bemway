@@ -140,7 +140,7 @@ export default function TaskBoard({
             <div
               ref={provided?.innerRef}
               {...provided?.droppableProps}
-              className="flex w-fit min-h-screen my-4 pb-20"
+              className="flex w-fit min-h-screen my-4 pb-20 md:ml-0 ml-4"
             >
               {stages?.map(({ stageName, task, id, order }, stageIndex) => (
                 <TaskGroup
