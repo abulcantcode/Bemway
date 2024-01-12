@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ThemeToggle from "./ThemeToggle";
+import ThemeToggle from "../components/Shared/ThemeToggle";
 import { cookies } from "next/headers";
 import ServerBackendRequest from "@/utils/serverBackend";
 import { redirect } from "next/navigation";
 import axios from "axios";
+import LogOutButton from "@/components/Shared/LogOutButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className + " " + theme?.value}>
-        <ThemeToggle initialValue={theme?.value as "light" | "dark"} />
+        <div className="absolute top-0 right-0 flex">
+          <ThemeToggle initialValue={theme?.value as "light" | "dark"} />
+          <LogOutButton />
+        </div>
         {children}
       </body>
     </html>

@@ -1,0 +1,56 @@
+:is(.dark .moonTheme) {
+  transform: rotate3d(0, 0, 0, 0);
+  opacity: 1;
+  animation: fadeOutIn 0.4s linear;
+}
+
+.moonTheme {
+  transform: rotate3d(1, 1, 0, 180deg);
+  transition: transform 0.4s linear;
+  opacity: 0;
+  transition: transform 0.4s linear, background-color 0.4s ease-in-out;
+}
+
+.sunTheme {
+  transform: rotate3d(0, 0, 0, 0);
+  opacity: 1;
+  animation: fadeOutIn 0.4s linear;
+  transition: transform 0.4s linear, background-color 0.4s ease-in-out;
+}
+
+:is(.dark .sunTheme) {
+  transform: rotate3d(1, 1, 0, 180deg);
+  opacity: 0;
+  animation: fadeInOut 0.4s linear;
+  transition: transform 0.4s linear;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 1;
+  }
+  49% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOutIn {
+  0% {
+    opacity: 0;
+  }
+  49% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}

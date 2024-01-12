@@ -40,7 +40,7 @@ export default function TaskGroup({
       {(provided) => (
         <div {...provided?.draggableProps} ref={provided?.innerRef}>
           <div
-            className="h-5 bg-zinc-600 dark:bg-stone-400 fill-white dark:fill-black mr-4 flex justify-center items-center rounded-t-[4px] opacity-40"
+            className="h-5 bg-zinc-600 dark:bg-stone-700 fill-white mr-4 flex justify-center items-center rounded-t-[4px] opacity-40"
             {...provided?.dragHandleProps}
           >
             <DragHandle height={10} />
