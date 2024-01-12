@@ -1,4 +1,4 @@
--- Active: 1703614797495@@127.0.0.1@5432@postgres
+-- Active: 1699820285331@@127.0.0.1@5432@postgres
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
@@ -124,8 +124,8 @@ VALUES (
 
 WITH inserted_board AS (
     INSERT INTO "board" ("boardName", "ownerId")
-    VALUES ('House Stuff 2', '42b64d23-bbd8-470f-a8fa-450dec2ca6c9')
-    RETURNING "id"
+    VALUES ('House Stuff 2', 'd82b63d9-a021-4c2f-abbe-8e3892b2313e')
+    RETURNING *
 )
 -- INSERT INTO "userBoard" ("boardId", "userId")
 SELECT * FROM inserted_board;
@@ -193,9 +193,11 @@ SELECT
                             '[]'::json
                         )
                     )
+                    ORDER BY "task"."order"
                 )
                 FROM "task"
                 WHERE "task"."stageId" = "stage"."id"
+                
                 ),
                 '[]'::json)
             )
@@ -230,3 +232,27 @@ INSERT INTO "userBoardTask" ("taskId", "userBoardId")
 VALUES ((SELECT "id" FROM newTask), '51145387-c258-480f-b776-4126510fa982'::uuid)
 SELECT json_agg("user") from "user";
 
+INSERT INTO "user" ("firstName", "lastName", "email", "password")
+        VALUES ('a', 'b', 'c', 'd')
+        RETURNING "id", "email"
+
+
+
+
+UPDATE "task"
+   SET "order" = 1
+   WHERE "stageId" = '383061ee-d82f-43ab-8409-87810c353b77';
+
+
+SELECT "task"."id", "stage"."boardId" FROM "task"
+          LEFT JOIN "stage" ON "stage"."id" = "task"."stageId"
+          WHERE "task"."id" = '1a7e7838-86f4-4232-b9de-21bb169189a4';
+
+
+SELECT COUNT(*) 
+FROM "stage" 
+WHERE "boardId" = 'c49c399a-dba8-4002-807f-631ec8ddd3b0';
+
+
+SELECT "id", "order" FROM "stage"
+          WHERE "id" = 'd6f8955f-2fab-44f2-aceb-fc62ea953bfc';

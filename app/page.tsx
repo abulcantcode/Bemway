@@ -1,7 +1,9 @@
-import InputForm from "../components/CreateUserForm";
+import SignupForm from "@/components/Auth/SignupForm";
 
-export default function Home() {
+export default function CreateUserPage() {
   return (
-    <main className='flex min-h-screen flex-col bg-white dark:bg-black'></main>
+    <main className="flex items-center justify-center bg-white dark:bg-black">
+      <SignupForm />
+    </main>
   );
 }

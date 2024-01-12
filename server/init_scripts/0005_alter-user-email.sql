@@ -1,0 +1,3 @@
+ALTER TABLE "user" 
+    ALTER COLUMN "email" SET DATA TYPE TEXT,
+    ALTER COLUMN "email" SET NOT NULL;

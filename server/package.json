@@ -11,13 +11,16 @@
     "db:current": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/var/lib/postgresql/data postgres",
     "db:live": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -p 5432:5432 -v %cd%/init_scripts:/docker-entrypoint-initdb.d -v /c/DockerProjects/postgres/pg-bemway:/var/lib/postgresql/data postgres",
     "db:kill": "docker rm --force pg-docker",
-    "migrate": "ts-node migrate.ts && npx zapatos"
+    "migrate": "ts-node utils/migrate.ts && npx zapatos"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/express-session": "^1.17.10",
     "@types/node": "^20.9.0",
     "@types/pg": "^8.10.9",
     "nodemon": "^3.0.1",
@@ -26,10 +29,15 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "pg": "^8.11.3",
     "postgres-migrations": "^5.3.0",
-    "zapatos": "^6.2.0"
+    "socket.io": "^4.7.3",
+    "zapatos": "^6.2.0",
+    "zod": "^3.22.4"
   }
 }

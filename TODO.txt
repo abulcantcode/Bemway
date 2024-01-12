@@ -8,7 +8,7 @@
 - implement all recommended features to the backend
 - userName -> username
 - rm console log
-- rm assigneeuserid from UBT
+- rm assigneeuserid from UBT userboardtask
 - form handling better
 - styling and components better
 - dark mode
@@ -16,3 +16,45 @@
 - make persistant data storage for database
 - get HTTPS certificate
 - increase readability of server. split out into more routes
+- create sessions
+- create live updating websocket
+- create drag and drop
+- create modal
+- check signup page for more TODO
+- create mobile mode
+- NEED TO CONFIG ENVLOCAL
+# cache data - redis
+# authorisation
+# /v1/
+# ssl
+- convert backend to use HTTPS, from env variable
+- middleware in SQL
+- rm all _files and colocate properly
+- remove create user and impersonate user pages
+- remove userId cookie
+- better toggle theme
+- better layout component
+- give a nice overview on the readme the fact that this is done without an ORM and made as an API + front end client
+- make a submitting state
+- understand why 8080 and 30000 have same cookies?
+- remove all fetch() where possible
+- test muti account on mozilla and all the others
+- delete boards list and build out dashboard
+- error handling of zod on signup form and other forms - make helper
+- lightmode and dark mode
+- nice layout
+- how to get the hash of express (might be provided by connect + the secret you used)  + play more around with session objects
+- TComponentType -> ComponentProps
+- eventually do privelages
+
+-https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
+passportjs: https://www.passportjs.org/howtos/session/
+
+- why did axios not work backend but fetch did? maybe there is some options to set?
+
+
+- any extra paths required for matcher in middleware? maybe some images?
+
+
+- nextjs file to not cache when called (build cache issue you were having with helper function cookies)

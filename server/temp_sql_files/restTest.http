@@ -1,0 +1,5 @@
+GET http://localhost:8080/session HTTP/1.1
+Cookie: connect.sid=s:f4wx1k-N1qzPh-Ai6MQcAFnVWc6FArwy.zY02BbbLsgBcqD0ftP3msTSLX/5ulswDv+Y2e+2v1OA;
+
+
+###

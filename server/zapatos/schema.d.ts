@@ -23,6 +23,10 @@ declare module 'zapatos/schema' {
   export namespace every {
     export type Privileges = ['GLOBAL_EDIT', 'LOCAL_EDIT', 'READ_ONLY'];
   }
+  export type Profile = 'BLUE' | 'GREEN' | 'LIGHTGRAY' | 'MAROON' | 'NAVY' | 'ORANGE' | 'PINK' | 'PURPLE' | 'RED' | 'SILVER';
+  export namespace every {
+    export type Profile = ['BLUE', 'GREEN', 'LIGHTGRAY', 'MAROON', 'NAVY', 'ORANGE', 'PINK', 'PURPLE', 'RED', 'SILVER'];
+  }
   export type priority_enum = 'HIGH' | 'LOW' | 'MEDIUM';
   export namespace every {
     export type priority_enum = ['HIGH', 'LOW', 'MEDIUM'];
@@ -340,6 +344,119 @@ declare module 'zapatos/schema' {
       executed_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment>;
     }
     export type UniqueIndex = 'migrations_name_key' | 'migrations_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **session**
+   * - Table in database
+   */
+  export namespace session {
+    export type Table = 'session';
+    export interface Selectable {
+      /**
+      * **session.sid**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      sid: string;
+      /**
+      * **session.sess**
+      * - `json` in database
+      * - `NOT NULL`, no default
+      */
+      sess: db.JSONValue;
+      /**
+      * **session.expire**
+      * - `timestamp` in database
+      * - `NOT NULL`, no default
+      */
+      expire: Date;
+    }
+    export interface JSONSelectable {
+      /**
+      * **session.sid**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      sid: string;
+      /**
+      * **session.sess**
+      * - `json` in database
+      * - `NOT NULL`, no default
+      */
+      sess: db.JSONValue;
+      /**
+      * **session.expire**
+      * - `timestamp` in database
+      * - `NOT NULL`, no default
+      */
+      expire: db.TimestampString;
+    }
+    export interface Whereable {
+      /**
+      * **session.sid**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      sid?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **session.sess**
+      * - `json` in database
+      * - `NOT NULL`, no default
+      */
+      sess?: db.JSONValue | db.Parameter<db.JSONValue> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, db.JSONValue | db.Parameter<db.JSONValue> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **session.expire**
+      * - `timestamp` in database
+      * - `NOT NULL`, no default
+      */
+      expire?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **session.sid**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      sid: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **session.sess**
+      * - `json` in database
+      * - `NOT NULL`, no default
+      */
+      sess: db.JSONValue | db.Parameter<db.JSONValue> | db.SQLFragment;
+      /**
+      * **session.expire**
+      * - `timestamp` in database
+      * - `NOT NULL`, no default
+      */
+      expire: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **session.sid**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      sid?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **session.sess**
+      * - `json` in database
+      * - `NOT NULL`, no default
+      */
+      sess?: db.JSONValue | db.Parameter<db.JSONValue> | db.SQLFragment | db.SQLFragment<any, db.JSONValue | db.Parameter<db.JSONValue> | db.SQLFragment>;
+      /**
+      * **session.expire**
+      * - `timestamp` in database
+      * - `NOT NULL`, no default
+      */
+      expire?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'session_pkey';
     export type Column = keyof Selectable;
     export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
     export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
@@ -857,10 +974,10 @@ declare module 'zapatos/schema' {
       id: string;
       /**
       * **user.email**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
-      email: string | null;
+      email: string;
       /**
       * **user.firstName**
       * - `text` in database
@@ -885,6 +1002,18 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated: Date;
+      /**
+      * **user.password**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      password: string | null;
+      /**
+      * **user.profile**
+      * - `Profile` in database
+      * - Nullable, default: `'BLUE'::"Profile"`
+      */
+      profile: Profile | null;
     }
     export interface JSONSelectable {
       /**
@@ -895,10 +1024,10 @@ declare module 'zapatos/schema' {
       id: string;
       /**
       * **user.email**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
-      email: string | null;
+      email: string;
       /**
       * **user.firstName**
       * - `text` in database
@@ -923,6 +1052,18 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated: db.TimestampString;
+      /**
+      * **user.password**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      password: string | null;
+      /**
+      * **user.profile**
+      * - `Profile` in database
+      * - Nullable, default: `'BLUE'::"Profile"`
+      */
+      profile: Profile | null;
     }
     export interface Whereable {
       /**
@@ -933,8 +1074,8 @@ declare module 'zapatos/schema' {
       id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
       * **user.email**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
       email?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
@@ -961,6 +1102,18 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.password**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      password?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.profile**
+      * - `Profile` in database
+      * - Nullable, default: `'BLUE'::"Profile"`
+      */
+      profile?: Profile | db.Parameter<Profile> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, Profile | db.Parameter<Profile> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
@@ -971,10 +1124,10 @@ declare module 'zapatos/schema' {
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
       * **user.email**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
-      email?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      email: string | db.Parameter<string> | db.SQLFragment;
       /**
       * **user.firstName**
       * - `text` in database
@@ -999,6 +1152,18 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
+      /**
+      * **user.password**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      password?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user.profile**
+      * - `Profile` in database
+      * - Nullable, default: `'BLUE'::"Profile"`
+      */
+      profile?: Profile | db.Parameter<Profile> | null | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
@@ -1009,10 +1174,10 @@ declare module 'zapatos/schema' {
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
       * **user.email**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
-      email?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      email?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
       /**
       * **user.firstName**
       * - `text` in database
@@ -1037,8 +1202,20 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user.password**
+      * - `text` in database
+      * - Nullable, no default
+      */
+      password?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user.profile**
+      * - `Profile` in database
+      * - Nullable, default: `'BLUE'::"Profile"`
+      */
+      profile?: Profile | db.Parameter<Profile> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, Profile | db.Parameter<Profile> | null | db.DefaultType | db.SQLFragment>;
     }
-    export type UniqueIndex = 'user_pkey';
+    export type UniqueIndex = 'user_email_key' | 'user_pkey';
     export type Column = keyof Selectable;
     export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
     export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
@@ -1424,20 +1601,20 @@ declare module 'zapatos/schema' {
   /* --- aggregate types --- */
 
   export namespace public {  
-    export type Table = board.Table | migrations.Table | stage.Table | task.Table | user.Table | userBoard.Table | userBoardTask.Table;
-    export type Selectable = board.Selectable | migrations.Selectable | stage.Selectable | task.Selectable | user.Selectable | userBoard.Selectable | userBoardTask.Selectable;
-    export type JSONSelectable = board.JSONSelectable | migrations.JSONSelectable | stage.JSONSelectable | task.JSONSelectable | user.JSONSelectable | userBoard.JSONSelectable | userBoardTask.JSONSelectable;
-    export type Whereable = board.Whereable | migrations.Whereable | stage.Whereable | task.Whereable | user.Whereable | userBoard.Whereable | userBoardTask.Whereable;
-    export type Insertable = board.Insertable | migrations.Insertable | stage.Insertable | task.Insertable | user.Insertable | userBoard.Insertable | userBoardTask.Insertable;
-    export type Updatable = board.Updatable | migrations.Updatable | stage.Updatable | task.Updatable | user.Updatable | userBoard.Updatable | userBoardTask.Updatable;
-    export type UniqueIndex = board.UniqueIndex | migrations.UniqueIndex | stage.UniqueIndex | task.UniqueIndex | user.UniqueIndex | userBoard.UniqueIndex | userBoardTask.UniqueIndex;
-    export type Column = board.Column | migrations.Column | stage.Column | task.Column | user.Column | userBoard.Column | userBoardTask.Column;
+    export type Table = board.Table | migrations.Table | session.Table | stage.Table | task.Table | user.Table | userBoard.Table | userBoardTask.Table;
+    export type Selectable = board.Selectable | migrations.Selectable | session.Selectable | stage.Selectable | task.Selectable | user.Selectable | userBoard.Selectable | userBoardTask.Selectable;
+    export type JSONSelectable = board.JSONSelectable | migrations.JSONSelectable | session.JSONSelectable | stage.JSONSelectable | task.JSONSelectable | user.JSONSelectable | userBoard.JSONSelectable | userBoardTask.JSONSelectable;
+    export type Whereable = board.Whereable | migrations.Whereable | session.Whereable | stage.Whereable | task.Whereable | user.Whereable | userBoard.Whereable | userBoardTask.Whereable;
+    export type Insertable = board.Insertable | migrations.Insertable | session.Insertable | stage.Insertable | task.Insertable | user.Insertable | userBoard.Insertable | userBoardTask.Insertable;
+    export type Updatable = board.Updatable | migrations.Updatable | session.Updatable | stage.Updatable | task.Updatable | user.Updatable | userBoard.Updatable | userBoardTask.Updatable;
+    export type UniqueIndex = board.UniqueIndex | migrations.UniqueIndex | session.UniqueIndex | stage.UniqueIndex | task.UniqueIndex | user.UniqueIndex | userBoard.UniqueIndex | userBoardTask.UniqueIndex;
+    export type Column = board.Column | migrations.Column | session.Column | stage.Column | task.Column | user.Column | userBoard.Column | userBoardTask.Column;
   
-    export type AllBaseTables = [board.Table, migrations.Table, stage.Table, task.Table, user.Table, userBoard.Table, userBoardTask.Table];
+    export type AllBaseTables = [board.Table, migrations.Table, session.Table, stage.Table, task.Table, user.Table, userBoard.Table, userBoardTask.Table];
     export type AllForeignTables = [];
     export type AllViews = [];
     export type AllMaterializedViews = [];
-    export type AllTablesAndViews = [board.Table, migrations.Table, stage.Table, task.Table, user.Table, userBoard.Table, userBoardTask.Table];
+    export type AllTablesAndViews = [board.Table, migrations.Table, session.Table, stage.Table, task.Table, user.Table, userBoard.Table, userBoardTask.Table];
   }
 
 
@@ -1467,6 +1644,7 @@ declare module 'zapatos/schema' {
   export type SelectableForTable<T extends Table> = {
     "board": board.Selectable;
     "migrations": migrations.Selectable;
+    "session": session.Selectable;
     "stage": stage.Selectable;
     "task": task.Selectable;
     "user": user.Selectable;
@@ -1477,6 +1655,7 @@ declare module 'zapatos/schema' {
   export type JSONSelectableForTable<T extends Table> = {
     "board": board.JSONSelectable;
     "migrations": migrations.JSONSelectable;
+    "session": session.JSONSelectable;
     "stage": stage.JSONSelectable;
     "task": task.JSONSelectable;
     "user": user.JSONSelectable;
@@ -1487,6 +1666,7 @@ declare module 'zapatos/schema' {
   export type WhereableForTable<T extends Table> = {
     "board": board.Whereable;
     "migrations": migrations.Whereable;
+    "session": session.Whereable;
     "stage": stage.Whereable;
     "task": task.Whereable;
     "user": user.Whereable;
@@ -1497,6 +1677,7 @@ declare module 'zapatos/schema' {
   export type InsertableForTable<T extends Table> = {
     "board": board.Insertable;
     "migrations": migrations.Insertable;
+    "session": session.Insertable;
     "stage": stage.Insertable;
     "task": task.Insertable;
     "user": user.Insertable;
@@ -1507,6 +1688,7 @@ declare module 'zapatos/schema' {
   export type UpdatableForTable<T extends Table> = {
     "board": board.Updatable;
     "migrations": migrations.Updatable;
+    "session": session.Updatable;
     "stage": stage.Updatable;
     "task": task.Updatable;
     "user": user.Updatable;
@@ -1517,6 +1699,7 @@ declare module 'zapatos/schema' {
   export type UniqueIndexForTable<T extends Table> = {
     "board": board.UniqueIndex;
     "migrations": migrations.UniqueIndex;
+    "session": session.UniqueIndex;
     "stage": stage.UniqueIndex;
     "task": task.UniqueIndex;
     "user": user.UniqueIndex;
@@ -1527,6 +1710,7 @@ declare module 'zapatos/schema' {
   export type ColumnForTable<T extends Table> = {
     "board": board.Column;
     "migrations": migrations.Column;
+    "session": session.Column;
     "stage": stage.Column;
     "task": task.Column;
     "user": user.Column;
@@ -1537,6 +1721,7 @@ declare module 'zapatos/schema' {
   export type SQLForTable<T extends Table> = {
     "board": board.SQL;
     "migrations": migrations.SQL;
+    "session": session.SQL;
     "stage": stage.SQL;
     "task": task.SQL;
     "user": user.SQL;

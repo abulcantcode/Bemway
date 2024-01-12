@@ -1,74 +1,101 @@
 "use client";
+import BackendRequest from "@/utils/backend";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Modal from "../Shared/Modal";
+import Button from "../Shared/Button";
+import { Plus } from "react-feather";
+import Input from "../Shared/Input";
+import classNames from "classnames";
 
-const InputForm = ({ userId }: { userId: string }) => {
-  // Use state to handle inputs
+const CreateBoardForm = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
   const [formData, setFormData] = useState({
     boardName: "",
-    userId: userId,
   });
 
-  console.log("Cookies:", document.cookie, " - userId:", userId);
-  const { push } = useRouter();
+  const { refresh } = useRouter();
 
-  //update use state on change of the form
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // creates a post request. called on submition of the form
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    setSubmitting(true);
 
     try {
-      const response = await fetch("http://localhost:8080/board", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await BackendRequest.post("board", formData);
 
-      if (response.ok) {
+      if (response.status === 200 && response.statusText === "OK") {
         console.log("Board created successfully");
-        push("/boards");
-        // Handle success, e.g., show a success message
+        setError(false);
+        setFormData({ boardName: "" });
+        refresh();
+        setSubmitting(false);
+        setIsOpen(false);
       } else {
         console.error("Board create failed");
-        // Handle failure, e.g., show an error message
+        setError(true);
       }
     } catch (error) {
       console.error("Error:", error);
-      // Handle error, e.g., show an error message
+      setError(true);
+      setSubmitting(false);
     }
   };
 
   return (
-    <div className="bg-green-500 p-4 px-8 rounded-md w-fit flex flex-col items-center">
-      <h2 className="font-bold text-xl underline underline-offset-4">
-        Create Board
-      </h2>
+    <>
+      <Button onClick={() => setIsOpen(true)}>
+        <Plus />
+        Create a new board
+      </Button>
+      {isOpen && (
+        <Modal
+          modalTitle="Create a New Board"
+          closeModal={() => {
+            setFormData({
+              boardName: "",
+            });
+            setSubmitting(false);
+            setError(false);
+            setIsOpen(false);
+          }}
+        >
+          <div className="w-full flex flex-col items-center">
+            <Input
+              label="Board Name"
+              type="text"
+              name="boardName"
+              labelProps={{ className: "w-full" }}
+              value={formData.boardName}
+              onChange={handleChange}
+              disabled={isSubmitting}
+            />
 
-      <form onSubmit={handleSubmit} className="flex flex-col mt-4 items-center">
-        <label className="flex flex-col items-center gap-2">
-          Board Name:
-          <input
-            type="text"
-            name="boardName"
-            className="text-black rounded-md px-2 py-1"
-            value={formData.boardName}
-            onChange={handleChange}
-          />
-        </label>
+            <h3
+              className={classNames("text-red-500 font-semibold text-sm", {
+                invisible: !error,
+              })}
+            >
+              Internal server error. Please try again.
+            </h3>
 
-        <button className="bg-black py-2 px-4 rounded-md" type="submit">
-          Create
-        </button>
-      </form>
-    </div>
+            <Button
+              disabled={!formData?.boardName || isSubmitting}
+              className="mt-2 w-full flex items-center gap-2"
+              onClick={handleSubmit}
+            >
+              <Plus /> Create new board
+            </Button>
+          </div>
+        </Modal>
+      )}
+    </>
   );
 };
 
-export default InputForm;
+export default CreateBoardForm;

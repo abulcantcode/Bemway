@@ -1,7 +1,11 @@
+import ServerBackendRequest from "@/utils/serverBackend";
 import ImpersonateUser from "./_impersonateUser";
+import { cookies } from "next/headers";
 
 export default async function ImpersonateUserPage() {
-  const allUsers = await (await fetch("http://localhost:8080/user")).json();
+  const allUsers = (
+    await ServerBackendRequest(cookies).get("http://localhost:8080/user")
+  ).data;
   return (
     <>
       {allUsers.map(

@@ -1,4 +1,4 @@
-import InputForm from "@/components/CreateUserForm";
+import InputForm from "@/components/User/CreateUserForm";
 
 export default function CreateUserPage() {
   return (

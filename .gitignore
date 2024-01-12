@@ -43,3 +43,5 @@ server/.pnp.js
 server/.yarn/install-state.gz
 
 /.vscode
+
+.env
