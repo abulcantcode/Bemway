@@ -6,6 +6,7 @@ import { updateStageOrderValues } from "./orderStage";
 import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import * as s from "zapatos/schema";
+import { getBoardSocket } from "../../utils/getSocketRoom";
 
 const createStageSchema = z.object({
   stageName: z.string().min(1),
@@ -85,7 +86,7 @@ export default function createStage(
 
         await updateStageOrderValues(board.rows[0].id);
 
-        io.to(board.rows[0].id).emit("createStage", {
+        io.to(getBoardSocket(board.rows[0].id)).emit("createStage", {
           ...newStage.rows[0],
           task: [],
         });

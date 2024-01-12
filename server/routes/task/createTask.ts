@@ -6,6 +6,7 @@ import { CustomRequest } from "../../utils/sessions";
 import { updateOrderValues } from "./orderTask";
 import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { getBoardSocket } from "../../utils/getSocketRoom";
 
 const createTaskSchema = z.object({
   taskName: z.string().min(1),
@@ -140,7 +141,7 @@ WHERE "stage"."id" = $1::uuid
 
         await updateOrderValues(stage.rows[0].id);
 
-        io.to(stage.rows[0].boardId).emit("createTask", {
+        io.to(getBoardSocket(stage.rows[0].boardId)).emit("createTask", {
           stageId: stage.rows[0].id,
         });
 

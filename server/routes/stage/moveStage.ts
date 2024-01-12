@@ -5,6 +5,7 @@ import * as z from "zod";
 import { updateStageOrderValues } from "./orderStage";
 import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { getBoardSocket } from "../../utils/getSocketRoom";
 
 const moveStageSchema = z.object({
   stageId: z.string().min(1),
@@ -87,7 +88,9 @@ export default async function moveStage(
           [stage.rows[0].boardId]
         );
 
-        io.to(stage.rows[0].boardId).emit("moveStage", { stageOrder });
+        io.to(getBoardSocket(stage.rows[0].boardId)).emit("moveStage", {
+          stageOrder,
+        });
 
         return res.sendStatus(200);
       } catch (error) {

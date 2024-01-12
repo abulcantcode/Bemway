@@ -21,7 +21,12 @@ import {
   useState,
 } from "react";
 import Button from "@/components/Shared/Button";
-import { ArrowLeftCircle, ArrowRightCircle } from "react-feather";
+import {
+  ArrowLeft,
+  ArrowLeftCircle,
+  ArrowRight,
+  ArrowRightCircle,
+} from "react-feather";
 import classNames from "classnames";
 import io from "socket.io-client";
 import { TMoveStage, TMoveTask } from "../helper/useLazyFetch";
@@ -31,67 +36,38 @@ export default function TaskBoard({
   boardId,
   updateTaskOrder,
   updateColumnOrder,
-  matchColumnOrder,
-  matchTaskOrder,
-  addStage,
-  refetchStage,
-  refetchBoardInfo,
 }: {
   stages?: TBoardData["stage"];
   boardId: string;
   updateTaskOrder: (draggedItem: DropResult) => Promise<void>;
   updateColumnOrder: (draggedItem: DropResult) => Promise<void>;
-  matchColumnOrder: (e: TMoveStage) => void;
-  matchTaskOrder: (e: TMoveTask) => void;
-  addStage: (e: TBoardData["stage"][0]) => void;
-  refetchStage: (e: { stageId: string }) => Promise<void>;
-  refetchBoardInfo: () => Promise<void>;
+  // matchColumnOrder: (e: TMoveStage) => void;
+  // matchTaskOrder: (e: TMoveTask) => void;
+  // addStage: (e: TBoardData["stage"][0]) => void;
+  // refetchStage: (e: { stageId: string }) => Promise<void>;
+  // refetchBoardInfo: () => Promise<void>;
 }) {
-  const [scrollEnd, setScrollEnd] = useState({ left: true, right: false });
+  const [scrollEnd, setScrollEnd] = useState({ left: true, right: true });
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { refresh } = useRouter();
-
-  useLayoutEffect(() => {
-    // Assuming 'socket' is your WebSocket connection
-    const socket = io(process.env.BACKEND_ROUTE || "http://localhost:8080");
-
-    socket.emit("joinBoard", boardId);
-
-    socket.on("moveTask", matchTaskOrder);
-    socket.on("moveStage", matchColumnOrder);
-    socket.on("createStage", addStage);
-    socket.on("createTask", refetchStage);
-    socket.on("inviteUser", refetchBoardInfo);
-
-    return () => {
-      // Disconnect the socket and remove event listeners when the component unmounts
-      socket.disconnect();
-      socket.off("moveTask", matchTaskOrder);
-      socket.off("moveStage", matchColumnOrder);
-      socket.off("createStage", addStage);
-      socket.off("createTask", refetchStage);
-      socket.off("inviteUser", refetchBoardInfo);
-    };
-  }, [
-    boardId,
-    matchColumnOrder,
-    matchTaskOrder,
-    addStage,
-    refetchStage,
-    refetchBoardInfo,
-  ]);
 
   useEffect(() => {
-    const onScrollBoard = (e: Event) => {
+    const onScrollBoard = () => {
       setScrollEnd((prev) => getScrollAtBoundry(scrollRef) || prev);
     };
     const mooves = scrollRef?.current;
 
+    const updateEndBoundries = setTimeout(() => {
+      onScrollBoard();
+    }, 500);
+
     mooves?.addEventListener("scroll", onScrollBoard);
+    document.addEventListener("scrollend", onScrollBoard);
     return () => {
       mooves?.removeEventListener("scroll", onScrollBoard);
+      document.removeEventListener("scrollend", onScrollBoard);
+      clearInterval(updateEndBoundries);
     };
-  }, [scrollRef, scrollEnd]);
+  }, [scrollRef]);
 
   const mouseDownScroll =
     (left: number) =>
@@ -127,26 +103,35 @@ export default function TaskBoard({
 
   return (
     <div
-      className="bg-emerald-900 w-full flex overflow-y-auto relative"
+      className="w-full flex overflow-x-auto overflow-y-hidden relative"
       ref={scrollRef}
     >
       <Button
         className={classNames(
-          "sticky left-0 top-0 bottom-0 z-10 flex-col justify-around rounded-none duration-500",
+          "sticky left-0 top-0 bottom-0 z-10 flex-col justify-around rounded-none",
+          "duration-500 md:flex hidden bg-neutral-500 text-white",
           {
             "opacity-0 cursor-default": scrollEnd.left,
             "opacity-70": !scrollEnd.left,
           }
         )}
-        size="sm"
+        size="zero"
+        theme="none"
         onClick={() => {
           scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
         }}
         onMouseDown={mouseDownScroll(-300)}
       >
-        <ArrowLeftCircle />
-        <ArrowLeftCircle />
-        <ArrowLeftCircle />
+        {Array.from(
+          {
+            length: Math.floor(
+              (scrollRef?.current?.clientHeight || 1000) / 300
+            ),
+          },
+          (un, idx) => (
+            <ArrowLeft size={30} key={idx} />
+          )
+        )}
       </Button>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="all-cols" direction="horizontal" type="column">
@@ -154,7 +139,7 @@ export default function TaskBoard({
             <div
               ref={provided?.innerRef}
               {...provided?.droppableProps}
-              className="flex w-fit min-h-screen my-8 ml-6"
+              className="flex w-fit min-h-screen my-4 pb-20"
             >
               {stages?.map(({ stageName, task, id, order }, stageIndex) => (
                 <TaskGroup
@@ -173,21 +158,30 @@ export default function TaskBoard({
       </DragDropContext>
       <Button
         className={classNames(
-          "sticky right-0 top-0 bottom-0 z-10 justify-around flex-col rounded-none duration-500",
+          "sticky right-0 top-0 bottom-0 z-10 justify-around flex-col rounded-none",
+          "duration-500 md:flex hidden bg-neutral-500 text-white",
           {
             "opacity-0 cursor-default": scrollEnd.right,
             "opacity-70": !scrollEnd.right,
           }
         )}
-        size="sm"
+        size="zero"
         onClick={(e) => {
           scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
         }}
+        theme="none"
         onMouseDown={mouseDownScroll(300)}
       >
-        <ArrowRightCircle />
-        <ArrowRightCircle />
-        <ArrowRightCircle />
+        {Array.from(
+          {
+            length: Math.floor(
+              (scrollRef?.current?.clientHeight || 1000) / 300
+            ),
+          },
+          (un, idx) => (
+            <ArrowRight size={30} key={idx} />
+          )
+        )}
       </Button>
     </div>
   );

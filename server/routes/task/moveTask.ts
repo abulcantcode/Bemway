@@ -5,6 +5,7 @@ import * as z from "zod";
 import { updateOrderValues } from "./orderTask";
 import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { getBoardSocket } from "../../utils/getSocketRoom";
 
 const moveTaskSchema = z.object({
   taskId: z.string().min(1),
@@ -131,7 +132,7 @@ export default async function moveTask(
           [verifiedStageId]
         );
 
-        io.to(task.rows[0].boardId).emit("moveTask", {
+        io.to(getBoardSocket(task.rows[0].boardId)).emit("moveTask", {
           newStageTaskOrder,
           newStageId: verifiedStageId,
           prevStageTaskOrder,

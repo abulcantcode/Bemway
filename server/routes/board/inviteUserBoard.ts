@@ -3,6 +3,7 @@ import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { pool } from "../../db";
 import validateSession from "../../utils/validateSession";
+import { getBoardSocket } from "../../utils/getSocketRoom";
 
 export default function inviteUserBoard(
   app: Express,
@@ -56,7 +57,7 @@ RETURNING "id";
             .send({ email: "Failed to invite user, please try again!" });
         }
 
-        io.to(boardId).emit("inviteUser");
+        io.to(getBoardSocket(boardId)).emit("inviteUser");
         res.status(200).send(data.rows);
       } catch (err) {
         console.log(err);

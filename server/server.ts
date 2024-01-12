@@ -5,13 +5,14 @@ import { pool } from "./db";
 import board from "./routes/board";
 import task from "./routes/task";
 import user from "./routes/user";
-import CustomPostgresStore from "./utils/sessions";
+import CustomPostgresStore, { CustomRequest } from "./utils/sessions";
 import cors from "cors";
 import checkSession from "./routes/session";
 import stage from "./routes/stage";
 import { Server } from "socket.io";
 import http from "http";
-import { disconnect } from "process";
+import { getBoardSocket } from "./utils/getSocketRoom";
+import { checkSessionValid } from "./utils/validateSession";
 
 const app = express();
 
@@ -32,7 +33,7 @@ app.use(cors(corsPolicy));
 
 app.use(express.json());
 
-const sessionConfig = {
+const sessionMiddleware = session({
   store: new CustomPostgresStore(),
   secret: "bemway_secrets",
   resave: false,
@@ -40,9 +41,9 @@ const sessionConfig = {
   cookie: {
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   },
-};
+});
 
-app.use(session(sessionConfig));
+app.use(sessionMiddleware);
 
 // Websocket stuff
 // --------------------------------------------------------------------
@@ -51,15 +52,57 @@ const server = http.createServer(app);
 
 const io = new Server(server, { cors: corsPolicy });
 
+io.engine.use(sessionMiddleware);
+
+const SESSION_RELOAD_INTERVAL = 3 * 60 * 1000;
+
 io.on("connection", (socket) => {
+  console.log(
+    "socket connection userid + sessionId is: ",
+    (socket.request as CustomRequest)?.session?.userId,
+    (socket.request as CustomRequest)?.session?.id
+  );
+
+  if (!checkSessionValid(socket.request)) {
+    console.log("Not a valid connection, disconnecting");
+    return socket.disconnect();
+  } else {
+    console.log("Valid connection", socket.id);
+    socket.join((socket.request as CustomRequest)?.session?.id);
+  }
+
+  // socket.join( (socket.request as CustomRequest)?.session?.userId)
+
+  const periodicValidation = setInterval(() => {
+    (socket.request as CustomRequest).session.reload((err) => {
+      if (err || !checkSessionValid(socket.request)) {
+        console.log("Invalid session on periodic check, connection is closing");
+        socket.conn.close();
+        // you can also use socket.disconnect(), but in that case the client
+        // will not try to reconnect -> to reconnect use socket.conn.close() => forces the client to reconnect
+      }
+    });
+  }, SESSION_RELOAD_INTERVAL);
+
   console.log("A user connected", socket.id);
+
+  // On join board:
+
   socket.on("joinBoard", (boardId) => {
     // Join a room based on the boardId
-    socket.join(boardId);
-    console.log(`User joined board ${socket.id}, boardId: ${boardId}`);
+    if (checkSessionValid(socket.request)) {
+      socket.join(getBoardSocket(boardId));
+      console.log(`User joined board ${socket.id}, boardId: ${boardId}`);
+    } else {
+      console.log(
+        "Did not join board due to invalid session, boardId:",
+        boardId
+      );
+    }
   });
 
   socket.on("disconnect", () => {
+    clearInterval(periodicValidation);
     console.log("user disconnected", socket.id);
   });
 
@@ -81,7 +124,6 @@ stage(app, io);
 
 app.get("/", async (req, res) => {
   console.log("Server is running");
-
   try {
     //const data = await pool.query('SELECT * FROM "user"');
     const data = await pool.query(

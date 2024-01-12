@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomRequest } from "./sessions";
 import removeClientSession from "./removeClientSession";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { Socket } from "socket.io";
 
 const validateSession =
   (
@@ -15,26 +17,18 @@ const validateSession =
   ) =>
   async (req: Request, res: Response) => {
     // Check if a user is logged in based on your session setup
-    if (req.session && req.session?.cookie?.expires) {
-      // console.log(
-      //   "THIS IS MIDDLEWARE",
-      //   req.cookies,
-      //   "HERE IS SESSION",
-      //   req.session,
-      //   req.session?.cookie?.expires,
-      //   new Date(),
-      //   req.session?.cookie?.expires > new Date()
-      // );
-      if (
-        (req as CustomRequest).session?.userId &&
-        (req as CustomRequest).session?.loggedIn &&
-        (req as CustomRequest).session?.valid &&
-        req.session?.cookie?.expires > new Date()
-      ) {
-        return pipe(req, res);
-      }
-      // User is authenticated, proceed to the next middleware or route
-    }
+    // console.log(
+    //   "THIS IS MIDDLEWARE",
+    //   req.cookies,
+    //   "HERE IS SESSION",
+    //   req.session,
+    //   req.session?.cookie?.expires,
+    //   new Date(),
+    //   req.session?.cookie?.expires > new Date()
+    // );
+
+    if (checkSessionValid(req)) return pipe(req, res);
+
     console.error("User not valid");
     // User is not authenticated, send an unauthorized response
 
@@ -46,3 +40,31 @@ const validateSession =
   };
 
 export default validateSession;
+
+export const checkSessionValid = (req: any) => {
+  if (req?.session && req?.session?.cookie?.expires) {
+    if (
+      (req as CustomRequest).session?.userId &&
+      (req as CustomRequest).session?.loggedIn &&
+      (req as CustomRequest).session?.valid &&
+      req.session?.cookie?.expires > new Date()
+    ) {
+      return true;
+    }
+  }
+  return false;
+};
+
+// export const validateSocketConnection = (socket:Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) =>{
+//   const timer = setInterval(() => {
+//     socket?.request?.session?.reload((err) => {
+//       if (err) {
+//         // forces the client to reconnect
+//         socket.conn.close();
+//         // you can also use socket.disconnect(), but in that case the client
+//         // will not try to reconnect
+//       }
+//     });
+//   }, SESSION_RELOAD_INTERVAL);
+
+// }

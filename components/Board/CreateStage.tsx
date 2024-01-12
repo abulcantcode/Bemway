@@ -30,8 +30,8 @@ export default function CreateStage({ boardId }: { boardId: string }) {
   };
   return (
     <>
-      <Button className="mt-8 h-[100px] mr-60" onClick={() => setIsOpen(true)}>
-        <div className="w-[272px] flex  justify-center items-center">
+      <Button className="mt-4 h-[75px] mr-60" onClick={() => setIsOpen(true)}>
+        <div className="w-[350px] flex  justify-center items-center">
           <Plus size={16} />
           <Columns className="mr-2" />
           Create New Stage

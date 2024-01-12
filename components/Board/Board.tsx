@@ -16,47 +16,48 @@ export default function Board({
 }) {
   const {
     boardInfo,
-    addStage,
     refetchStage,
     refetchBoardInfo,
     updateTaskOrder,
     updateColumnOrder,
     stageData,
-    matchColumnOrder,
-    matchTaskOrder,
   } = useLazyFetch({
     res,
     boardId,
   });
   return (
     <>
-      <h1 className="ml-8 py-8 text-4xl">{boardInfo.boardName}</h1>
+      <div className="flex flex-col dark:bg-black dark:bg-opacity-50 bg-opacity-50 bg-stone-300">
+        <h1 className="ml-8 pt-8 mb-4 text-4xl dark:text-white text-black font-light dark:font-extralight">
+          {boardInfo.boardName}
+        </h1>
 
-      <div className="flex mb-4 ml-8 gap-2">
-        {boardInfo.users.map(({ user }, idx) => (
-          <UserProfile {...user} key={`users-for-board-${idx}`} />
-        ))}
-      </div>
-      <div className="flex gap-4 mb-4 ml-8">
-        <InviteUserModal
-          boardId={boardId}
-          refetchBoardInfo={refetchBoardInfo}
-        />
-        <CreateTaskModal
-          boardData={{ ...boardInfo, stage: stageData }}
-          refetchStage={refetchStage}
-        />
+        <div className="flex mb-4 ml-8 gap-2">
+          {boardInfo.users.map(({ user }, idx) => (
+            <UserProfile {...user} key={`users-for-board-${idx}`} />
+          ))}
+        </div>
+        <div className="flex gap-4 mb-4 ml-8">
+          <InviteUserModal
+            boardId={boardId}
+            refetchBoardInfo={refetchBoardInfo}
+          />
+          <CreateTaskModal
+            boardData={{ ...boardInfo, stage: stageData }}
+            refetchStage={refetchStage}
+          />
+        </div>
       </div>
       <TaskBoard
         stages={stageData}
         boardId={boardId}
         updateTaskOrder={updateTaskOrder}
         updateColumnOrder={updateColumnOrder}
-        matchColumnOrder={matchColumnOrder}
-        matchTaskOrder={matchTaskOrder}
-        addStage={addStage}
-        refetchStage={refetchStage}
-        refetchBoardInfo={refetchBoardInfo}
+        // matchColumnOrder={matchColumnOrder}
+        // matchTaskOrder={matchTaskOrder}
+        // addStage={addStage}
+        // refetchStage={refetchStage}
+        // refetchBoardInfo={refetchBoardInfo}
       />
     </>
   );
