@@ -62,10 +62,14 @@ export default function AuthForm() {
   */
 
   return (
-    <div className="bg-neutral-100 pt-4 pb-6 px-8 min-w-fit w-2/3 flex flex-col items-center min-h-screen justify-center">
-      <h2 className="font-bold text-2xl mb-8 text-black">
-        Log in to your account
-      </h2>
+    <div
+      className={classNames(
+        "dark:bg-neutral-100 bg-slate-700 dark:bg-opacity-10 bg-opacity-20",
+        "pt-4 pb-6 px-8 min-w-fit w-2/3 flex flex-col items-center min-h-screen justify-center",
+        "text-black dark:text-white"
+      )}
+    >
+      <h2 className="font-bold text-2xl mb-8">Log in to your account</h2>
 
       <form
         onSubmit={handleSubmit}
@@ -75,7 +79,7 @@ export default function AuthForm() {
           label="Email"
           type="text"
           name="email"
-          labelProps={{ className: "w-full" }}
+          labelProps={{ className: "w-full dark:text-gray-300" }}
           value={formData.email}
           onChange={handleChange}
           required
@@ -86,13 +90,13 @@ export default function AuthForm() {
           label="Password"
           type={showPassword ? "text" : "password"}
           name="password"
-          labelProps={{ className: "w-full" }}
+          labelProps={{ className: "w-full dark:text-gray-300" }}
           value={formData.password}
           onChange={handleChange}
           required
           disabled={submitting}
         />
-        <label className="flex items-center gap-2 w-full text-sm text-black cursor-pointer">
+        <label className="flex items-center gap-2 w-full text-sm cursor-pointer">
           <input
             type="checkbox"
             checked={showPassword}
@@ -103,7 +107,7 @@ export default function AuthForm() {
         </label>
 
         <button
-          className="bg-black py-2 px-4 rounded-md mt-8 w-full"
+          className="bg-black text-white font-semibold py-2 px-4 rounded-md mt-8 w-full"
           type="submit"
           disabled={submitting}
         >
@@ -117,7 +121,7 @@ export default function AuthForm() {
       >
         The username and password is invalid. Please try again.
       </h3>
-      <a href="/" className="font-bold text-lg mt-4 mb-8 text-black">
+      <a href="/" className="font-bold text-lg mt-4 mb-8">
         Don&apos;t have an account yet? <b className="underline">Sign up</b>.
       </a>
     </div>

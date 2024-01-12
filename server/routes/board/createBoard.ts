@@ -35,12 +35,12 @@ new_user_board AS (
     )
     RETURNING "boardId"
 )
-INSERT INTO "stage" ("stageName","boardId")
-SELECT 'Not started', "id" from new_board
+INSERT INTO "stage" ("stageName","boardId", "order")
+SELECT 'Not started', "id", 0 from new_board
 UNION ALL
-SELECT 'In-progress', "id" from new_board
+SELECT 'In-progress', "id", 1 from new_board
 UNION ALL
-SELECT 'Done', "id" from new_board;
+SELECT 'Done', "id", 2 from new_board;
 `,
           [userId, boardName]
         );

@@ -71,8 +71,15 @@ const SignupForm = () => {
   */
 
   return (
-    <div className="bg-neutral-100 pt-4 pb-6 px-8 min-w-fit w-2/3 flex flex-col items-center min-h-screen justify-center">
-      <h2 className="font-bold text-2xl mb-8 text-black">Create an account</h2>
+    <div
+      className={classNames(
+        "pt-4 pb-6 px-8 min-w-fit w-2/3 text-black dark:text-white",
+
+        "flex flex-col items-center min-h-screen justify-center",
+        "dark:bg-neutral-100 bg-slate-700 dark:bg-opacity-10 bg-opacity-20"
+      )}
+    >
+      <h2 className="font-bold text-2xl mb-8">Create an account</h2>
 
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <div className="flex md:gap-4 w-full md:flex-row flex-col">
@@ -84,7 +91,9 @@ const SignupForm = () => {
             onChange={handleChange}
             required
             disabled={submitting}
-            labelProps={{ className: "w-full min-w-[200px]" }}
+            labelProps={{
+              className: "w-full min-w-[200px] dark:text-gray-300",
+            }}
             errorByName={error}
           />
           <Input
@@ -96,7 +105,9 @@ const SignupForm = () => {
             required
             disabled={submitting}
             errorByName={error}
-            labelProps={{ className: "w-full min-w-[200px]" }}
+            labelProps={{
+              className: "w-full min-w-[200px] dark:text-gray-300",
+            }}
           />
         </div>
 
@@ -104,7 +115,7 @@ const SignupForm = () => {
           label="Email"
           type="text"
           name="email"
-          labelProps={{ className: "w-full" }}
+          labelProps={{ className: "w-full dark:text-gray-300" }}
           value={formData.email}
           onChange={handleChange}
           required
@@ -116,14 +127,14 @@ const SignupForm = () => {
           label="Password"
           type={showPassword ? "text" : "password"}
           name="password"
-          labelProps={{ className: "w-full" }}
+          labelProps={{ className: "w-full dark:text-gray-300" }}
           value={formData.password}
           onChange={handleChange}
           required
           errorByName={error}
           disabled={submitting}
         />
-        <label className="flex items-center gap-2 w-full text-sm text-black cursor-pointer">
+        <label className="flex items-center gap-2 w-full text-sm cursor-pointer">
           <input
             type="checkbox"
             checked={showPassword}
@@ -133,7 +144,7 @@ const SignupForm = () => {
           Show password
         </label>
         <div className="w-full">
-          <h3 className="mt-4 mb-2 text-black">Select a profile colour:</h3>
+          <h3 className="mt-4 mb-2">Select a profile colour:</h3>
           <div className="flex flex-wrap gap-1">
             {ProfileColor.map((profile, index) => (
               <div
@@ -144,7 +155,8 @@ const SignupForm = () => {
                 }
                 className={classNames("p-0.5 border-2", {
                   "border-transparent": profile !== formData?.profile,
-                  "border-black": profile === formData?.profile,
+                  "border-black dark:border-white":
+                    profile === formData?.profile,
                   "cursor-not-allowed opacity-50": submitting,
                   "cursor-pointer": !submitting,
                 })}
@@ -159,7 +171,7 @@ const SignupForm = () => {
           </div>
         </div>
         <button
-          className="bg-black py-2 px-4 rounded-md mt-8 w-full"
+          className="bg-black text-white font-semibold py-2 px-4 rounded-md mt-8 w-full"
           type="submit"
           disabled={submitting}
         >
@@ -173,7 +185,7 @@ const SignupForm = () => {
       >
         Internal server error. Please try again.
       </h3>
-      <a href="/auth" className="font-bold text-lg mt-4 mb-8 text-black">
+      <a href="/auth" className="font-bold text-lg mt-4 mb-8">
         Or, if you already have an account <b className="underline">log in</b>.
       </a>
     </div>

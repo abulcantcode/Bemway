@@ -14,25 +14,24 @@ export default function BoardList({
   title: string;
 }) {
   return (
-    <div className="flex flex-col gap-4 p-16 bg-white">
-      <h1 className="text-black font-bold text-3xl underline underline-offset-8">
-        {title}
-      </h1>
-      <CreateBoardForm />
+    <div className="flex flex-col gap-4 p-6 sm:p-8 md:p-16">
+      <div className="flex justify-between flex-wrap gap-8 mb-8">
+        <h1 className="text-black font-extralight text-5xl dark:text-white">
+          {title}
+        </h1>
+        <CreateBoardForm />
+      </div>
 
       {!boards.length && (
-        <div className="text-black mt-16 text-xl">
-          No boards.{" "}
-          <a href="/boards/create" className="underline ">
-            Click here to create a board.
-          </a>
+        <div className="text-black dark:text-white mt-8 text-xl text-center">
+          {`No boards. Use the "Create a new board" button to get started!`}
         </div>
       )}
 
       {boards?.map &&
         boards?.map(({ boardName, id, isOwner }, index) => (
           <a href={`./board/${id}`} key={`board-${index}`}>
-            <div className="p-10 text-2xl bg-black text-white flex justify-between items-center">
+            <div className="p-10 text-2xl bg-black dark:text-white text-black flex justify-between items-center bg-opacity-20">
               {boardName}
               <div
                 className={classNames(

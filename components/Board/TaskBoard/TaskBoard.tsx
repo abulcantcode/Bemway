@@ -132,6 +132,7 @@ export default function TaskBoard({
             <ArrowLeft size={30} key={idx} />
           )
         )}
+        <ArrowLeft size={30} />
       </Button>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="all-cols" direction="horizontal" type="column">
@@ -182,6 +183,7 @@ export default function TaskBoard({
             <ArrowRight size={30} key={idx} />
           )
         )}
+        <ArrowRight size={30} />
       </Button>
     </div>
   );
@@ -194,7 +196,7 @@ const getScrollAtBoundry = (ref: RefObject<HTMLDivElement>) => {
     ref?.current?.offsetWidth
   ) {
     return {
-      left: ref.current.scrollLeft === 0,
+      left: ref.current.scrollLeft < 10,
       right:
         ref.current?.scrollWidth - ref.current.scrollLeft <
         ref.current.offsetWidth + 10,

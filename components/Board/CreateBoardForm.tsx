@@ -49,7 +49,7 @@ const CreateBoardForm = () => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>
+      <Button onClick={() => setIsOpen(true)} className="flex gap-1">
         <Plus />
         Create a new board
       </Button>

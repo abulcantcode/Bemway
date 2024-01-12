@@ -30,6 +30,7 @@ function ThemeToggle({ initialValue }: { initialValue: Theme }) {
   return (
     <button
       type="button"
+      className="absolute right-0"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
       Toggle Theme
