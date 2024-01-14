@@ -24,7 +24,7 @@ export default function useLazyFetch({
     getBoardInfoFromRes(res)
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setStageData(res.stage);
     setBoardInfo(getBoardInfoFromRes(res));
   }, [res]);

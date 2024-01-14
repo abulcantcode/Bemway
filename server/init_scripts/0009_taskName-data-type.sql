@@ -1,0 +1,3 @@
+ALTER TABLE "task" 
+    ALTER COLUMN "taskName" SET DATA TYPE TEXT,
+    ALTER COLUMN "taskName" SET NOT NULL;

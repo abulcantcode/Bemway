@@ -50,7 +50,7 @@ export default function TaskGroup({
               <div
                 ref={provided?.innerRef}
                 className={classNames(
-                  "flex flex-col shadow-sm dark:shadow-slate-900 shadow-gray-400 pt-8",
+                  "flex flex-col shadow-sm dark:shadow-slate-900 shadow-gray-400 pt-9",
                   "rounded-b-[4px] relative h-full mr-4 dark:bg-opacity-10 bg-opacity-10",
                   stageBgColors?.[
                     generateNumberFromStr(title + "random") %
@@ -65,7 +65,7 @@ export default function TaskGroup({
                 >
                   {title}
                 </h3>
-                <hr className="w-[250px] md:w-[350px] opacity-10 border-black mb-1" />
+                <hr className="w-[250px] md:w-[350px] opacity-10 border-black" />
                 {tasks
                   // .filter((task) => (status ? task.status === status : true))
                   .map((task, taskNo) => (
