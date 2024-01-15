@@ -54,9 +54,7 @@ export default function useLazyFetch({
         });
 
         if (orderMatches) return prev;
-        console.log(
-          "Column ordering did not match after update, fixing it now!"
-        );
+        console.log("Column ordering has been updated, loading changes ...");
 
         const yan = prev
           .map((stage) => ({
@@ -130,7 +128,7 @@ export default function useLazyFetch({
         if (orderMatches) {
           return prev;
         }
-        console.log("Difference in the task ordering, fixing it now!");
+        console.log("Task ordering has been updated, loading it now...");
 
         const stageDataCopy = cloneDeep(prev);
         const allTasks = [...newStageData, ...prevStageData];
