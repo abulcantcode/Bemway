@@ -500,6 +500,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated: Date;
+      /**
+      * **stage.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order: number;
     }
     export interface JSONSelectable {
       /**
@@ -532,6 +538,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated: db.TimestampString;
+      /**
+      * **stage.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order: number;
     }
     export interface Whereable {
       /**
@@ -564,6 +576,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **stage.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
@@ -596,6 +614,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment;
+      /**
+      * **stage.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order: number | db.Parameter<number> | db.SQLFragment;
     }
     export interface Updatable {
       /**
@@ -628,6 +652,12 @@ declare module 'zapatos/schema' {
       * - `NOT NULL`, default: `CURRENT_TIMESTAMP`
       */
       updated?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **stage.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order?: number | db.Parameter<number> | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment>;
     }
     export type UniqueIndex = 'stage_pkey';
     export type Column = keyof Selectable;
@@ -651,10 +681,10 @@ declare module 'zapatos/schema' {
       id: string;
       /**
       * **task.taskName**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
-      taskName: string | null;
+      taskName: string;
       /**
       * **task.creatorUserId**
       * - `uuid` in database
@@ -703,6 +733,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       taskPriority: priority_enum | null;
+      /**
+      * **task.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order: number;
     }
     export interface JSONSelectable {
       /**
@@ -713,10 +749,10 @@ declare module 'zapatos/schema' {
       id: string;
       /**
       * **task.taskName**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
-      taskName: string | null;
+      taskName: string;
       /**
       * **task.creatorUserId**
       * - `uuid` in database
@@ -765,6 +801,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       taskPriority: priority_enum | null;
+      /**
+      * **task.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order: number;
     }
     export interface Whereable {
       /**
@@ -775,8 +817,8 @@ declare module 'zapatos/schema' {
       id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
       * **task.taskName**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
       taskName?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
@@ -827,6 +869,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       taskPriority?: priority_enum | db.Parameter<priority_enum> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, priority_enum | db.Parameter<priority_enum> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **task.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
@@ -837,10 +885,10 @@ declare module 'zapatos/schema' {
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
       * **task.taskName**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
-      taskName?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      taskName: string | db.Parameter<string> | db.SQLFragment;
       /**
       * **task.creatorUserId**
       * - `uuid` in database
@@ -889,6 +937,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       taskPriority?: priority_enum | db.Parameter<priority_enum> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **task.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order: number | db.Parameter<number> | db.SQLFragment;
     }
     export interface Updatable {
       /**
@@ -899,10 +953,10 @@ declare module 'zapatos/schema' {
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
       * **task.taskName**
-      * - `varchar` in database
-      * - Nullable, no default
+      * - `text` in database
+      * - `NOT NULL`, no default
       */
-      taskName?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      taskName?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
       /**
       * **task.creatorUserId**
       * - `uuid` in database
@@ -951,6 +1005,12 @@ declare module 'zapatos/schema' {
       * - Nullable, no default
       */
       taskPriority?: priority_enum | db.Parameter<priority_enum> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, priority_enum | db.Parameter<priority_enum> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **task.order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      order?: number | db.Parameter<number> | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment>;
     }
     export type UniqueIndex = 'task_pkey';
     export type Column = keyof Selectable;
@@ -1250,7 +1310,7 @@ declare module 'zapatos/schema' {
       /**
       * **userBoard.privileges**
       * - `Privileges` in database
-      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      * - Nullable, default: `'GLOBAL_EDIT'::"Privileges"`
       */
       privileges: Privileges | null;
       /**
@@ -1288,7 +1348,7 @@ declare module 'zapatos/schema' {
       /**
       * **userBoard.privileges**
       * - `Privileges` in database
-      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      * - Nullable, default: `'GLOBAL_EDIT'::"Privileges"`
       */
       privileges: Privileges | null;
       /**
@@ -1326,7 +1386,7 @@ declare module 'zapatos/schema' {
       /**
       * **userBoard.privileges**
       * - `Privileges` in database
-      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      * - Nullable, default: `'GLOBAL_EDIT'::"Privileges"`
       */
       privileges?: Privileges | db.Parameter<Privileges> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, Privileges | db.Parameter<Privileges> | db.SQLFragment | db.ParentColumn>;
       /**
@@ -1364,7 +1424,7 @@ declare module 'zapatos/schema' {
       /**
       * **userBoard.privileges**
       * - `Privileges` in database
-      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      * - Nullable, default: `'GLOBAL_EDIT'::"Privileges"`
       */
       privileges?: Privileges | db.Parameter<Privileges> | null | db.DefaultType | db.SQLFragment;
       /**
@@ -1402,7 +1462,7 @@ declare module 'zapatos/schema' {
       /**
       * **userBoard.privileges**
       * - `Privileges` in database
-      * - Nullable, default: `'READ_ONLY'::"Privileges"`
+      * - Nullable, default: `'GLOBAL_EDIT'::"Privileges"`
       */
       privileges?: Privileges | db.Parameter<Privileges> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, Privileges | db.Parameter<Privileges> | null | db.DefaultType | db.SQLFragment>;
       /**

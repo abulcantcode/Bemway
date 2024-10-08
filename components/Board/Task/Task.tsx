@@ -17,26 +17,27 @@ export default function Task({
       {(provided, snapshot) => (
         <div
           ref={provided?.innerRef}
-          className="text-sm dark:bg-neutral-900 bg-zinc-200 rounded-[5px] shadow-lg flex flex-col gap-2 p-4 mx-2 mt-2 dark:text-white text-black opacity-90"
+          className='text-sm dark:bg-neutral-900 bg-zinc-200 rounded-[5px] shadow-lg flex flex-col gap-2 p-4 mx-2 mt-2 dark:text-white text-black opacity-90'
           {...provided?.draggableProps}
           {...provided.dragHandleProps}
+          onClick={() => alert("aaa")} // on click to change the blablabla
         >
           <h4
-            lang="de"
-            className="hyphens-auto overflow-clip max-w-[302px] font-semibold"
+            lang='de'
+            className='hyphens-auto overflow-clip max-w-[302px] font-semibold'
           >
             {taskName}
           </h4>
-          <hr className="dark:border-slate-500 border-slate-900" />
+          <hr className='dark:border-slate-500 border-slate-900' />
           <p>{description} </p>
           {/* <p>{status}</p> */}
           <p>{due?.toString()}</p>
           {dueStart && <p>{dueStart?.toString()}</p>}
           {taskPriority && <p>{taskPriority}</p>}
-          <div className="flex gap-2">
+          <div className='flex gap-2'>
             {userBoardTask?.map(({ userBoard }, idx) => (
               <UserProfile
-                size="sm"
+                size='sm'
                 firstName={userBoard?.user?.firstName}
                 lastName={userBoard?.user?.lastName}
                 profile={userBoard?.user?.profile}
