@@ -6,6 +6,7 @@ import getBoardData from "./getBoardData";
 import getBoardList from "./getBoardList";
 import inviteUserBoard from "./inviteUserBoard";
 import getBoardInfo from "./getBoardInfo";
+import updateBoardName from "./updateBoardName";
 export type { TBoardData } from "./getBoardData";
 
 export default function board(
@@ -17,4 +18,5 @@ export default function board(
   getBoardData(app, io);
   createBoard(app, io);
   inviteUserBoard(app, io);
+  updateBoardName(app, io);
 }
